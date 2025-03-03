@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "SkinCalcPlus",
+    "version": "1.0.0",
+    "content_scripts": [
+        {
+            "matches": ["https://skin.club/*"],
+            "run_at": "document_start",
+            "all_frames": true,
+            "css": ["skin_calc_plus_case_page_odds.css"],
+            "js": ["jquery-3.7.1.min.js", "skin_calc_plus_case_page_odds.js"]
+        }
+    ]
+}
