@@ -261,6 +261,14 @@ function construct_case_info_elements(parent) {
                 <h5>MEDIAN RETURN:</h5>
                 <h5>
                     <span class="skin-calc-plus-cell-value">
+                        <span id="skin-calc-plus-median-case">?</span>
+                        <span id="skin-calc-plus-median-case-old">?</span>
+                    </span>
+                    <span class="skin-calc-plus-cell-title">CASE PRICE</span>
+                    <span id="skin-calc-plus-median-case-change" class="skin-calc-plus-prev-gen-change-indicator"></span>
+                </h5>
+                <h5>
+                    <span class="skin-calc-plus-cell-value">
                         <span id="skin-calc-plus-median-usd">?</span>
                         <span id="skin-calc-plus-median-usd-old">?</span>
                     </span>
@@ -372,86 +380,96 @@ function generate_values(case_odds, case_price, old = "") {
 
         // in case there are no exclusive items, we use the best item
         if (item_price > jackpot_usd) {
-            jackpot_usd = item_price;
+            jackpot_usd = item_price * item_chance;
             jackpot_chance = item_chance;
         }
 
         total_ev += item_price * item_chance;
     }
-    jackpot_usd *= jackpot_chance;
+
+    // no exclusive drop, use best item instead
+    if (!exclusive_chance) {
+        exclusive_usd = jackpot_usd;
+        exclusive_chance = jackpot_chance;
+    }
 
     // Expected Value -> USD
     var val_total_ev_usd = total_ev;
     $("#skin-calc-plus-total-ev-usd" + old).text("$" + val_total_ev_usd.toFixed(2).toString());
+    $("#skin-calc-plus-total-ev-usd" + old).data("value", val_total_ev_usd.toFixed(2));
 
     // Expected Value -> Percent
     var val_total_ev_percent = (total_ev / case_price) * 100;
     $("#skin-calc-plus-total-ev-percent" + old).text(val_total_ev_percent.toFixed(2).toString() + "%");
+    $("#skin-calc-plus-total-ev-percent" + old).data("value", val_total_ev_percent.toFixed(2));
 
     // Expected Value -> Avg. Cases
     var val_total_ev_cases = 1 / rarest_item_chance;
     $("#skin-calc-plus-total-ev-cases" + old).text(Math.ceil(val_total_ev_cases).toString());
+    $("#skin-calc-plus-total-ev-cases" + old).data("value", Math.ceil(val_total_ev_cases));
 
     // Break Even -> Profit Factor
     var val_even_fac = (break_even_factor / break_even_chance) / case_price;
     $("#skin-calc-plus-break-even-factor" + old).text(val_even_fac.toFixed(2).toString() + "x");
+    $("#skin-calc-plus-break-even-factor" + old).data("value", val_even_fac.toFixed(2));
 
     // Break Even -> Chance
     var val_even_chance = break_even_chance * 100;
     $("#skin-calc-plus-break-even-chance" + old).text(val_even_chance.toFixed(2).toString() + "%");
+    $("#skin-calc-plus-break-even-chance" + old).data("value", val_even_chance.toFixed(2));
+
+    // Median Return -> Case Price
+    $("#skin-calc-plus-median-case" + old).text("$" + case_price.toFixed(2).toString());
+    $("#skin-calc-plus-median-case" + old).data("value", case_price.toFixed(2));
 
     // Median Return -> USD
     $("#skin-calc-plus-median-usd" + old).text("$" + median_usd.toFixed(2).toString());
+    $("#skin-calc-plus-median-usd" + old).data("value", median_usd.toFixed(2));
 
     // Median Return -> Percent
     var val_median_percent = (median_usd / case_price) * 100;
     $("#skin-calc-plus-median-percent" + old).text(val_median_percent.toFixed(2).toString() + "%");
+    $("#skin-calc-plus-median-percent" + old).data("value", val_median_percent.toFixed(2));
 
     // Jackpot -> USD
-    if (exclusive_usd && exclusive_chance) {
-        $("#skin-calc-plus-jackpot-usd" + old).text("$" + (exclusive_usd / exclusive_chance).toFixed(2).toString());
-    } else {
-        $("#skin-calc-plus-jackpot-usd" + old).text("$" + (jackpot_usd / jackpot_chance).toFixed(2).toString());
-    }
-    
+    $("#skin-calc-plus-jackpot-usd" + old).text("$" + (exclusive_usd / exclusive_chance).toFixed(2).toString());
+    $("#skin-calc-plus-jackpot-usd" + old).data("value", (exclusive_usd / exclusive_chance).toFixed(2));
 
     // Jackpot -> Profit Factor
-    if (exclusive_usd && exclusive_chance) {
-        $("#skin-calc-plus-jackpot-factor" + old).text(((exclusive_usd / exclusive_chance) / case_price).toFixed(2).toString() + "x");
-    } else {
-        $("#skin-calc-plus-jackpot-factor" + old).text(((jackpot_usd / jackpot_chance) / case_price).toFixed(2).toString() + "x");
-    }
+    $("#skin-calc-plus-jackpot-factor" + old).text(((exclusive_usd / exclusive_chance) / case_price).toFixed(2).toString() + "x");
+    $("#skin-calc-plus-jackpot-factor" + old).data("value", ((exclusive_usd / exclusive_chance) / case_price).toFixed(2));
 
     // Jackpot -> Chance
-    if (exclusive_chance) {
-        $("#skin-calc-plus-jackpot-chance" + old).text((exclusive_chance * 100).toFixed(2).toString() + "%");
-    } else {
-        $("#skin-calc-plus-jackpot-chance" + old).text((jackpot_chance * 100).toFixed(2).toString() + "%");
-    }
+    $("#skin-calc-plus-jackpot-chance" + old).text((exclusive_chance * 100).toFixed(2).toString() + "%");
+    $("#skin-calc-plus-jackpot-chance" + old).data("value", (exclusive_chance * 100).toFixed(2));
 
+    // Set Current EV Color
     if (!old) {
         $("#skin-calc-plus-total-ev-percent").css("color", getHexColorFromRange(89.5, 90, 90.5, val_total_ev_percent));
         return;
     }
 
+    // Change arrow indicator based on comparison against previous generation
     set_change_arrow("#skin-calc-plus-total-ev-usd-change");
     set_change_arrow("#skin-calc-plus-total-ev-percent");
     set_change_arrow("#skin-calc-plus-total-ev-cases", false);
     set_change_arrow("#skin-calc-plus-break-even-factor");
     set_change_arrow("#skin-calc-plus-break-even-chance");
+    set_change_arrow("#skin-calc-plus-median-case", false);
     set_change_arrow("#skin-calc-plus-median-usd");
     set_change_arrow("#skin-calc-plus-median-percent");
     set_change_arrow("#skin-calc-plus-jackpot-usd");
     set_change_arrow("#skin-calc-plus-jackpot-factor");
     set_change_arrow("#skin-calc-plus-jackpot-chance");
 
+    // reveal the case odds display
     reveal_info();
 }
 
 
 function set_change_arrow(element, greater_positive = true) {
-    var cur_gen = parseFloat($(element).text());
-    var old_gen = parseFloat($(element + "-old").text());
+    var cur_gen = parseFloat($(element).data("value"));
+    var old_gen = parseFloat($(element + "-old").data("value"));
     var gen_arrow = $(element + "-change");
 
     if (greater_positive) {
