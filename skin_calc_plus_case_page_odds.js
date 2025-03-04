@@ -157,20 +157,123 @@ function on_get_giveaway_case_info(case_info) {
 
 
 function on_get_giveaway_case_odds(case_odds) {
-    // LOOP ALL CASE_ODDS ITEMS, ADD EACH ONE TO A DICTIONARY WITH PRICE AND CHANCE
-    // IF ITEM ALREADY EXISTS IN DICTIONARY, ADD ITS PRICE AND CHANCE TO THE EXISTING ENTRY
-    // THEN GET ALL ELEMENTS WITH CLASS NAME "CASE_ITEM"
-    // LOOP THESE ELEMENTS, CHECKING IF THEIR IMG ALT MATCHES A DICTIONARY ENTRY
-    // IF IT DOES, GENERATE HTML TO DISPLAY PRICE AND CHANCE INSIDE THE ITEM CARD
+    var skins = {};
+    for (key in case_odds.data) {
+        var item = case_odds.data[key];
+        var skin_key = item.item["name"].toString() + " " + item.item["finish"].toString();
+
+        if (!(skin_key in skins)) {
+            skins[skin_key] = {};
+            skins[skin_key]["weapon"] = item.item["name"];
+            skins[skin_key]["skin"] = item.item["finish"];
+
+            skins[skin_key]["items"] = [];
+        }
+
+        var skin_variant = {}
+        skin_variant["finish"] = get_finish_shorthand(item.item.exterior);
+        skin_variant["stattrack"] = item.item.specifics;
+        skin_variant["range"] = item.range_min.toString() + "-" + item.range_max.toString();
+        skin_variant["price"] = parseFloat(Number(item.fixed_price) / 100);
+        skin_variant["chance"] = parseFloat(Number(item.chance_percent));
+
+        skins[skin_key]["items"].push(skin_variant);
+    }
+
+    for (id in skins) {
+        if (skins[id].items.length == 1) {
+            skins[id]["price"] = "$" + skins[id].items[0].price.toFixed(2).toString();
+            skins[id]["chance"] = skins[id].items[0].chance.toFixed(3).toString() + "%";
+        } else {
+            var min_price = 999999999;
+            var max_price = 0;
+            var total_chance = 0;
+
+            for (variant in skins[id].items) {
+                var vskin = skins[id].items[variant];
+                if (vskin.price > max_price) {
+                    max_price = vskin.price;
+                }
+                if (vskin.price < min_price) {
+                    min_price = vskin.price;
+                }
+                total_chance += vskin.chance;
+            }
+
+            min_price = "$" + min_price.toFixed(2).toString();
+            max_price = "$" + max_price.toFixed(2).toString();
+            skins[id]["price"] = min_price + " - " + max_price;
+            skins[id]["chance"] = total_chance.toFixed(3).toString() + "%";
+        }
+    }
 
     $(".skins-list").addClass("skin-calc-plus-giveaway-odds-added");
     $(".skins-list > div").each(function () {
-        // display price/chance
-        console.log("element");
+        var skin = skins[$(this).find(".case-entity__image").attr("alt").toString()];
+        $(this).append(`
+
+            <div class="skin-calc-plus-giveaway-chance-container">
+                <p class="skin-calc-plus-giveaway-chance-header">CHANCE</p>
+                <p class="skin-calc-plus-giveaway-chance-text">${skin.chance}</p>
+            </div>
+
+            <div class="skin-calc-plus-giveaway-price-container">
+                <p class="skin-calc-plus-giveaway-price-header">PRICE</p>
+                <p class="skin-calc-plus-giveaway-price-text"">${skin.price}</p>
+            </div>
+
+            <div class="skin-calc-plus-giveaway-table-wrapper">
+                <div class="skin-calc-plus-giveaway-table-row" style="margin-bottom: 10px; color: #9793c7; font-weight: 700; font-size: 10px;">
+                    <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 35%;">PRICE</div>
+                    <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 40%;">RANGE</div>
+                    <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 25%;">ODDS</div>
+                </div>
+            </div>
+
+        `);
+
+        for (variant in skin.items) {
+            var vskn = skin.items[variant];
+            var vprice = "$" + vskn.price.toFixed(2).toString();
+            var vchance = vskn.chance.toFixed(3).toString() + "%";
+            var vcol = "#fff";
+            if (vskn.stattrack) {
+                vcol = "#f2754e";
+            }
+
+            $(this).children(".skin-calc-plus-giveaway-table-wrapper").append(`
+                <div class="skin-calc-plus-giveaway-table-row" style="color: #fff; font-weight: 600; font-size: 9px;">
+                    <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 35%;">
+                        <span style="color: ${vcol}">${vskn.finish}</span>
+                        <span style="color: #26c897;">${vprice}</span>
+                    </div>
+                    <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 40%;">${vskn.range}</div>
+                    <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 25%;">${vchance}</div>
+                </div>
+            `);
+        }
     });
 
     setTimeout(event_loop, 500);
     return;
+}
+
+
+function get_finish_shorthand(finish) {
+    switch(finish) {
+        case "Factory New":
+            return "FN";
+        case "Minimal Wear":
+            return "MW";
+        case "Field-Tested":
+            return "FT";
+        case "Well-Worn":
+            return "WW";
+        case "Battle-Scarred":
+            return "BS";
+        default:
+            return "";
+    }
 }
 
 
