@@ -35,20 +35,17 @@ function event_loop() {
     // check if the case page has loaded enough to continue
     var roulette_container = document.getElementsByClassName("roulette-case")[0];
     if (!roulette_container) {
-        var is_giveaway = document.getElementsByClassName("giveaway-case");
-        if (!is_giveaway) {
+        if (!$("div.giveaway-case").length) {
             setTimeout(event_loop, 500);
             return;
         }
 
-        var giveaway_skin_list = document.getElementsByClassName("skins-list")[0];
-        if (!giveaway_skin_list) {
+        if (!$("div.skins-list > div").length) {
             setTimeout(event_loop, 500);
             return;
         }
 
-        var is_skin_list_modified = document.getElementsByClassName("skin-calc-plus-giveaway-odds-added")[0];
-        if (is_skin_list_modified) {
+        if ($("div.skins-list.skin-calc-plus-giveaway-odds-added").length) {
             setTimeout(event_loop, 500);
             return;
         }
@@ -101,7 +98,6 @@ function on_get_case_info(case_info, case_name) {
 
 function on_get_case_odds(case_odds, case_price, case_name) {
     generate_values(case_odds, case_price);
-    
     var odds_url = "https://gate.skin.club/apiv2/odds?page=2&per_page=1&sort_by=-id&filter[case_name]=" + case_name;
 
     $.getJSON(odds_url, function(data) {
@@ -207,53 +203,55 @@ function on_get_giveaway_case_odds(case_odds) {
         }
     }
 
-    $(".skins-list").addClass("skin-calc-plus-giveaway-odds-added");
-    $(".skins-list > div").each(function () {
-        var skin = skins[$(this).find(".case-entity__image").attr("alt").toString()];
-        $(this).append(`
+    for (id in skins) {
+        var id_exists_in_dom = $(`.skins-list img[alt="${id.toString()}"]`);
+        if(id_exists_in_dom.length) {
+            id_exists_in_dom.parent().parent().append(`
 
-            <div class="skin-calc-plus-giveaway-chance-container">
-                <p class="skin-calc-plus-giveaway-chance-header">CHANCE</p>
-                <p class="skin-calc-plus-giveaway-chance-text">${skin.chance}</p>
-            </div>
-
-            <div class="skin-calc-plus-giveaway-price-container">
-                <p class="skin-calc-plus-giveaway-price-header">PRICE</p>
-                <p class="skin-calc-plus-giveaway-price-text"">${skin.price}</p>
-            </div>
-
-            <div class="skin-calc-plus-giveaway-table-wrapper">
-                <div class="skin-calc-plus-giveaway-table-row" style="margin-bottom: 10px; color: #9793c7; font-weight: 700; font-size: 10px;">
-                    <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 35%;">PRICE</div>
-                    <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 40%;">RANGE</div>
-                    <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 25%;">ODDS</div>
+                <div class="skin-calc-plus-giveaway-chance-container">
+                    <p class="skin-calc-plus-giveaway-chance-header">CHANCE</p>
+                    <p class="skin-calc-plus-giveaway-chance-text">${skins[id].chance}</p>
                 </div>
-            </div>
 
-        `);
+                <div class="skin-calc-plus-giveaway-price-container">
+                    <p class="skin-calc-plus-giveaway-price-header">PRICE</p>
+                    <p class="skin-calc-plus-giveaway-price-text"">${skins[id].price}</p>
+                </div>
 
-        for (variant in skin.items) {
-            var vskn = skin.items[variant];
-            var vprice = "$" + vskn.price.toFixed(2).toString();
-            var vchance = vskn.chance.toFixed(3).toString() + "%";
-            var vcol = "#fff";
-            if (vskn.stattrack) {
-                vcol = "#f2754e";
-            }
-
-            $(this).children(".skin-calc-plus-giveaway-table-wrapper").append(`
-                <div class="skin-calc-plus-giveaway-table-row" style="color: #fff; font-weight: 600; font-size: 9px;">
-                    <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 35%;">
-                        <span style="color: ${vcol}">${vskn.finish}</span>
-                        <span style="color: #26c897;">${vprice}</span>
+                <div class="skin-calc-plus-giveaway-table-wrapper">
+                    <div class="skin-calc-plus-giveaway-table-row" style="margin-bottom: 10px; color: #9793c7; font-weight: 700; font-size: 10px;">
+                        <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 35%;">PRICE</div>
+                        <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 40%;">RANGE</div>
+                        <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 25%;">ODDS</div>
                     </div>
-                    <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 40%;">${vskn.range}</div>
-                    <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 25%;">${vchance}</div>
                 </div>
-            `);
-        }
-    });
 
+            `);
+
+            for (variant in skins[id].items) {
+                var vskn = skins[id].items[variant];
+                var vprice = "$" + vskn.price.toFixed(2).toString();
+                var vchance = vskn.chance.toFixed(3).toString() + "%";
+                var vcol = "#fff";
+                if (vskn.stattrack) {
+                    vcol = "#f2754e";
+                }
+
+                $(this).children(".skin-calc-plus-giveaway-table-wrapper").append(`
+                    <div class="skin-calc-plus-giveaway-table-row" style="color: #fff; font-weight: 600; font-size: 9px;">
+                        <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 35%;">
+                            <span style="color: ${vcol}">${vskn.finish}</span>
+                            <span style="color: #26c897;">${vprice}</span>
+                        </div>
+                        <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 40%;">${vskn.range}</div>
+                        <div class="skin-calc-plus-giveaway-table-cell" style="flex-basis: 25%;">${vchance}</div>
+                    </div>
+                `);
+            }
+        }
+    }
+
+    $(".skins-list").addClass("skin-calc-plus-giveaway-odds-added");
     setTimeout(event_loop, 500);
     return;
 }
