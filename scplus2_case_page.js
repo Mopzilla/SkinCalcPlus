@@ -66,7 +66,7 @@ scplus2.generate_case_page = async function() {
             <span>${prev_odds_v ? Math.ceil(1 / prev_odds_v.rarest_item_chance) : "?"}</span>
         </span>
         <span class="${case_prefix}-cell-title">AVG. CASES</span>
-        <span class="${case_prefix}-change ${calc_arrow(1 / prev_odds_v.rarest_item_chance, 1 / odds_v.rarest_item_chance)}"></span>
+        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(1 / prev_odds_v.rarest_item_chance, 1 / odds_v.rarest_item_chance) : ''}"></span>
     </h5>
     <h5>
         <span class="${case_prefix}-cell-value">
@@ -74,7 +74,7 @@ scplus2.generate_case_page = async function() {
             <span>${prev_odds_v ? "$" + prev_odds_v.total_ev.toFixed(2) : "?"}</span>
         </span>
         <span class="${case_prefix}-cell-title">TOTAL EV</span>
-        <span class="${case_prefix}-change ${calc_arrow(odds_v.total_ev, prev_odds_v.total_ev)}"></span>
+        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.total_ev, prev_odds_v.total_ev) : ''}"></span>
     </h5>
     <h5>
         <span class="${case_prefix}-cell-value">
@@ -82,7 +82,7 @@ scplus2.generate_case_page = async function() {
             <span>${prev_odds_v ? ((prev_odds_v.total_ev / prev_case_price) * 100).toFixed(2) + "%" : "?"}</span>
         </span>
         <span class="${case_prefix}-cell-title">AS PERCENT</span>
-        <span class="${case_prefix}-change ${calc_arrow(odds_v.total_ev / cur_case_price, prev_odds_v.total_ev / prev_case_price)}"></span>
+        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.total_ev / cur_case_price, prev_odds_v.total_ev / prev_case_price) : ''}"></span>
     </h5>
 </div>
 
@@ -94,7 +94,7 @@ scplus2.generate_case_page = async function() {
             <span>${prev_odds_v ? "$" + prev_case_price.toFixed(2) : "?"}</span>
         </span>
         <span class="${case_prefix}-cell-title">CASE PRICE</span>
-        <span class="${case_prefix}-change ${calc_arrow(prev_case_price, cur_case_price)}"></span>
+        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(prev_case_price, cur_case_price) : ''}"></span>
     </h5>
     <h5>
         <span class="${case_prefix}-cell-value">
@@ -102,7 +102,7 @@ scplus2.generate_case_page = async function() {
             <span>${prev_odds_v ? "$" + prev_odds_v.median_usd.toFixed(2) : "?"}</span>
         </span>
         <span class="${case_prefix}-cell-title">&#x2248;50%</span>
-        <span class="${case_prefix}-change ${calc_arrow(odds_v.median_usd, prev_odds_v.median_usd)}"></span>
+        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.median_usd, prev_odds_v.median_usd) : ''}"></span>
     </h5>
     <h5>
         <span class="${case_prefix}-cell-value">
@@ -110,7 +110,7 @@ scplus2.generate_case_page = async function() {
             <span>${prev_odds_v ? ((prev_odds_v.median_usd / prev_case_price) * 100).toFixed(2) + "%" : "?"}</span>
         </span>
         <span class="${case_prefix}-cell-title">AS PERCENT</span>
-        <span class="${case_prefix}-change ${calc_arrow(odds_v.median_usd / cur_case_price, prev_odds_v.median_usd / prev_case_price)}"></span>
+        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.median_usd / cur_case_price, prev_odds_v.median_usd / prev_case_price) : ''}"></span>
     </h5>
 </div>
 
@@ -122,7 +122,7 @@ scplus2.generate_case_page = async function() {
             <span>${prev_odds_v ? ((prev_odds_v.break_even_factor / prev_odds_v.break_even_chance) / prev_case_price).toFixed(2) + "x" : "?"}</span>
         </span>
         <span class="${case_prefix}-cell-title">PROFIT FACTOR</span>
-        <span class="${case_prefix}-change ${calc_arrow((odds_v.break_even_factor / odds_v.break_even_chance) / cur_case_price, (prev_odds_v.break_even_factor / prev_odds_v.break_even_chance) / prev_case_price)}"></span>
+        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow((odds_v.break_even_factor / odds_v.break_even_chance) / cur_case_price, (prev_odds_v.break_even_factor / prev_odds_v.break_even_chance) / prev_case_price) : ''}"></span>
     </h5>
     <h5>
         <span class="${case_prefix}-cell-value">
@@ -130,7 +130,7 @@ scplus2.generate_case_page = async function() {
             <span>${prev_odds_v ? (prev_odds_v.break_even_chance * 100).toFixed(2) + "%" : "?"}</span>
         </span>
         <span class="${case_prefix}-cell-title">CHANCE</span>
-        <span class="${case_prefix}-change ${calc_arrow(odds_v.break_even_chance, prev_odds_v.break_even_chance)}"></span>
+        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.break_even_chance, prev_odds_v.break_even_chance) : ''}"></span>
     </h5>
 </div>
 
@@ -142,7 +142,7 @@ scplus2.generate_case_page = async function() {
             <span>${prev_odds_v ? "$" + (prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance).toFixed(2) : "?"}</span>
         </span>
         <span class="${case_prefix}-cell-title">JACKPOT EV</span>
-        <span class="${case_prefix}-change ${calc_arrow(odds_v.exclusive_usd / odds_v.exclusive_chance, prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance)}"></span>
+        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.exclusive_usd / odds_v.exclusive_chance, prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance) : ''}"></span>
     </h5>
     <h5>
         <span class="${case_prefix}-cell-value">
@@ -150,7 +150,7 @@ scplus2.generate_case_page = async function() {
             <span>${prev_odds_v ? ((prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance) / prev_case_price).toFixed(2) + "x" : "?"}</span>
         </span>
         <span class="${case_prefix}-cell-title">PROFIT FACTOR</span>
-        <span class="${case_prefix}-change ${calc_arrow((odds_v.exclusive_usd / odds_v.exclusive_chance) / cur_case_price, (prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance) / prev_case_price)}"></span>
+        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow((odds_v.exclusive_usd / odds_v.exclusive_chance) / cur_case_price, (prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance) / prev_case_price) : ''}"></span>
     </h5>
     <h5>
         <span class="${case_prefix}-cell-value">
@@ -158,7 +158,7 @@ scplus2.generate_case_page = async function() {
             <span>${prev_odds_v ? (prev_odds_v.exclusive_chance * 100).toFixed(2) + "%" : "?"}</span>
         </span>
         <span class="${case_prefix}-cell-title">CHANCE</span>
-        <span class="${case_prefix}-change ${calc_arrow(odds_v.exclusive_chance, prev_odds_v.exclusive_chance)}"></span>
+        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.exclusive_chance, prev_odds_v.exclusive_chance) : ''}"></span>
     </h5>
 </div>
 
@@ -196,10 +196,6 @@ scplus2.generate_case_page = async function() {
     });
 
     function calc_arrow(p, n) {
-        if (p == null || n == null) {
-            return "";
-        }
-
         return p > n
             ? `${case_prefix}-change-positive` 
             : p < n 
