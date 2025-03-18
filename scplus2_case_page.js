@@ -3,7 +3,7 @@ window.scplus2 = window.scplus2 || {};
 
 scplus2.generate_case_page = async function() {
     const url = $(location).attr("href").toString();
-    const selector = "div.roulette-wrapper div.roulette div.roulette-cases div.roulette-case";
+    const selector = `div.roulette-wrapper div.roulette div.roulette-cases div.roulette-case`;
 
     if (!url.includes("/cases/")) {
         alert(".roulette-case found on a non-case page");
@@ -19,7 +19,7 @@ scplus2.generate_case_page = async function() {
 
     let case_json, cur_case_price, odds_json;
     try {
-        case_json = await $.getJSON("https://gate.skin.club/apiv2/cases/" + case_name);
+        case_json = await $.getJSON(`https://gate.skin.club/apiv2/cases/${case_name}`);
         case_json = case_json.data;
         cur_case_price = parseFloat(Number(case_json.price) / 100);
         odds_json = case_json.last_successful_generation.contents;
@@ -30,13 +30,16 @@ scplus2.generate_case_page = async function() {
 
     let prev_odds_json, prev_case_price;
     try {
-        prev_odds_json = await $.getJSON("https://gate.skin.club/apiv2/odds?page=2&per_page=1&sort_by=-id&filter[case_name]=" + case_name);
+        prev_odds_json = await $.getJSON(`
+                https://gate.skin.club/apiv2/odds?page=2&per_page=1&sort_by=-id
+                &filter[case_name]=${case_name}
+        `);
         prev_odds_json = prev_odds_json.data[0];
 
         if (prev_odds_json.length == 0) throw new Error("no previous odds");
 
         prev_case_price = parseFloat(Number(prev_odds_json.case_price) / 100);
-        prev_odds_json = await $.getJSON("https://gate.skin.club/apiv2/odds/" + prev_odds_json.uid.toString() + "/contents");
+        prev_odds_json = await $.getJSON(`https://gate.skin.club/apiv2/odds/${prev_odds_json.uid}/contents`);
         prev_odds_json = prev_odds_json.data;
     } catch (err) {
         prev_odds_json = null;
@@ -47,125 +50,170 @@ scplus2.generate_case_page = async function() {
 
     const case_prefix = scplus2.prefix + "-c827";
     const element_to_append = $(`
-<div id="${case_prefix}-info"><div id="${case_prefix}-child">
+<div id="${case_prefix}-info">
+    <div id="${case_prefix}-child">
+        <div id="${case_prefix}-gen-cont"${prev_odds_v ? '' : 'style="display: none !important;"'}>
+            <label id="${case_prefix}-gen-header">
+                <h5 id="${case_prefix}-prev-gen">PREVIOUS ODDS</h5>
+                <h5 id="${case_prefix}-cur-gen" class="${case_prefix}-active-gen">CURRENT ODDS</h5>
+                <input type="checkbox" id="${case_prefix}-gen-checkbox">
+            </label>
+        </div>
 
+        <div class="${case_prefix}-row">
+            <h5>EXPECTED VALUE:</h5>
+            <h5>
+                <span class="${case_prefix}-cell-value">
+                    <span>${Math.ceil(1 / odds_v.rarest_item_chance)}</span>
+                    <span>${prev_odds_v ? Math.ceil(1 / prev_odds_v.rarest_item_chance) : "?"}</span>
+                </span>
+                <span class="${case_prefix}-cell-title">AVG. CASES</span>
+                <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(
+                        1 / prev_odds_v.rarest_item_chance,
+                        1 / odds_v.rarest_item_chance
+                ) : ''}"></span>
+            </h5>
+            <h5>
+                <span class="${case_prefix}-cell-value">
+                    <span>${"$" + odds_v.total_ev.toFixed(2)}</span>
+                    <span>${prev_odds_v ? "$" + prev_odds_v.total_ev.toFixed(2) : "?"}</span>
+                </span>
+                <span class="${case_prefix}-cell-title">TOTAL EV</span>
+                <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(
+                        odds_v.total_ev,
+                        prev_odds_v.total_ev
+                ) : ''}"></span>
+            </h5>
+            <h5>
+                <span class="${case_prefix}-cell-value">
+                    <span>${((odds_v.total_ev / cur_case_price) * 100).toFixed(2) + "%"}</span>
+                    <span>${prev_odds_v ? ((
+                            prev_odds_v.total_ev / prev_case_price
+                    ) * 100).toFixed(2) + "%" : "?"}</span>
+                </span>
+                <span class="${case_prefix}-cell-title">AS PERCENT</span>
+                <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(
+                        odds_v.total_ev / cur_case_price,
+                        prev_odds_v.total_ev / prev_case_price
+                ) : ''}"></span>
+            </h5>
+        </div>
 
-<div id="${case_prefix}-gen-cont" ${prev_odds_v ? '' : 'style="display: none !important;"'}>
-    <label id="${case_prefix}-gen-header">
-        <h5 id="${case_prefix}-prev-gen">PREVIOUS ODDS</h5>
-        <h5 id="${case_prefix}-cur-gen" class="${case_prefix}-active-gen">CURRENT ODDS</h5>
-        <input type="checkbox" id="${case_prefix}-gen-checkbox">
-    </label>
+        <div class="${case_prefix}-row">
+            <h5>MEDIAN RETURN:</h5>
+            <h5>
+                <span class="${case_prefix}-cell-value">
+                    <span>${"$" + cur_case_price.toFixed(2)}</span>
+                    <span>${prev_odds_v ? "$" + prev_case_price.toFixed(2) : "?"}</span>
+                </span>
+                <span class="${case_prefix}-cell-title">CASE PRICE</span>
+                <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(
+                        prev_case_price,
+                        cur_case_price
+                ) : ''}"></span>
+            </h5>
+            <h5>
+                <span class="${case_prefix}-cell-value">
+                    <span>${"$" + odds_v.median_usd.toFixed(2)}</span>
+                    <span>${prev_odds_v ? "$" + prev_odds_v.median_usd.toFixed(2) : "?"}</span>
+                </span>
+                <span class="${case_prefix}-cell-title">&#x2248;50%</span>
+                <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(
+                        odds_v.median_usd,
+                        prev_odds_v.median_usd
+                ) : ''}"></span>
+            </h5>
+            <h5>
+                <span class="${case_prefix}-cell-value">
+                    <span>${((odds_v.median_usd / cur_case_price) * 100).toFixed(2) + "%"}</span>
+                    <span>${prev_odds_v ? ((
+                            prev_odds_v.median_usd / prev_case_price
+                    ) * 100).toFixed(2) + "%" : "?"}</span>
+                </span>
+                <span class="${case_prefix}-cell-title">AS PERCENT</span>
+                <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(
+                        odds_v.median_usd / cur_case_price,
+                        prev_odds_v.median_usd / prev_case_price
+                ) : ''}"></span>
+            </h5>
+        </div>
+
+        <div class="${case_prefix}-row">
+            <h5>BREAK EVEN ODDS:</h5>
+            <h5>
+                <span class="${case_prefix}-cell-value">
+                    <span>${((
+                            odds_v.break_even_factor / odds_v.break_even_chance
+                    ) / cur_case_price).toFixed(2) + "x"}</span>
+                    <span>${prev_odds_v ? ((
+                            prev_odds_v.break_even_factor / prev_odds_v.break_even_chance
+                    ) / prev_case_price).toFixed(2) + "x" : "?"}</span>
+                </span>
+                <span class="${case_prefix}-cell-title">PROFIT FACTOR</span>
+                <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(
+                        (odds_v.break_even_factor / odds_v.break_even_chance) / cur_case_price,
+                        (prev_odds_v.break_even_factor / prev_odds_v.break_even_chance) / prev_case_price
+                ) : ''}"></span>
+            </h5>
+            <h5>
+                <span class="${case_prefix}-cell-value">
+                    <span>${(odds_v.break_even_chance * 100).toFixed(2) + "%"}</span>
+                    <span>${prev_odds_v ? (prev_odds_v.break_even_chance * 100).toFixed(2) + "%" : "?"}</span>
+                </span>
+                <span class="${case_prefix}-cell-title">CHANCE</span>
+                <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(
+                        odds_v.break_even_chance,
+                        prev_odds_v.break_even_chance
+                ) : ''}"></span>
+            </h5>
+        </div>
+
+        <div class="${case_prefix}-row">
+            <h5>JACKPOT:</h5>
+            <h5>
+                <span class="${case_prefix}-cell-value">
+                    <span>${"$" + (odds_v.exclusive_usd / odds_v.exclusive_chance).toFixed(2)}</span>
+                    <span>${prev_odds_v ? "$" + (
+                            prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance
+                    ).toFixed(2) : "?"}</span>
+                </span>
+                <span class="${case_prefix}-cell-title">JACKPOT EV</span>
+                <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(
+                        odds_v.exclusive_usd / odds_v.exclusive_chance,
+                        prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance
+                ) : ''}"></span>
+            </h5>
+            <h5>
+                <span class="${case_prefix}-cell-value">
+                    <span>${((
+                            odds_v.exclusive_usd / odds_v.exclusive_chance
+                    ) / cur_case_price).toFixed(2) + "x"}</span>
+                    <span>${prev_odds_v ? ((
+                            prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance
+                    ) / prev_case_price).toFixed(2) + "x" : "?"}</span>
+                </span>
+                <span class="${case_prefix}-cell-title">PROFIT FACTOR</span>
+                <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(
+                        (odds_v.exclusive_usd / odds_v.exclusive_chance) / cur_case_price,
+                        (prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance) / prev_case_price
+                ) : ''}"></span>
+            </h5>
+            <h5>
+                <span class="${case_prefix}-cell-value">
+                    <span>${(odds_v.exclusive_chance * 100).toFixed(2) + "%"}</span>
+                    <span>${prev_odds_v ? (prev_odds_v.exclusive_chance * 100).toFixed(2) + "%" : "?"}</span>
+                </span>
+                <span class="${case_prefix}-cell-title">CHANCE</span>
+                <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(
+                        odds_v.exclusive_chance,
+                        prev_odds_v.exclusive_chance
+                ) : ''}"></span>
+            </h5>
+        </div>
+
+        <p>${time_since(case_json.last_successful_generation.created_at)}</p>
+    </div>
 </div>
-
-<div class="${case_prefix}-row">
-    <h5>EXPECTED VALUE:</h5>
-    <h5>
-        <span class="${case_prefix}-cell-value">
-            <span>${Math.ceil(1 / odds_v.rarest_item_chance)}</span>
-            <span>${prev_odds_v ? Math.ceil(1 / prev_odds_v.rarest_item_chance) : "?"}</span>
-        </span>
-        <span class="${case_prefix}-cell-title">AVG. CASES</span>
-        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(1 / prev_odds_v.rarest_item_chance, 1 / odds_v.rarest_item_chance) : ''}"></span>
-    </h5>
-    <h5>
-        <span class="${case_prefix}-cell-value">
-            <span>${"$" + odds_v.total_ev.toFixed(2)}</span>
-            <span>${prev_odds_v ? "$" + prev_odds_v.total_ev.toFixed(2) : "?"}</span>
-        </span>
-        <span class="${case_prefix}-cell-title">TOTAL EV</span>
-        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.total_ev, prev_odds_v.total_ev) : ''}"></span>
-    </h5>
-    <h5>
-        <span class="${case_prefix}-cell-value">
-            <span>${((odds_v.total_ev / cur_case_price) * 100).toFixed(2) + "%"}</span>
-            <span>${prev_odds_v ? ((prev_odds_v.total_ev / prev_case_price) * 100).toFixed(2) + "%" : "?"}</span>
-        </span>
-        <span class="${case_prefix}-cell-title">AS PERCENT</span>
-        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.total_ev / cur_case_price, prev_odds_v.total_ev / prev_case_price) : ''}"></span>
-    </h5>
-</div>
-
-<div class="${case_prefix}-row">
-    <h5>MEDIAN RETURN:</h5>
-    <h5>
-        <span class="${case_prefix}-cell-value">
-            <span>${"$" + cur_case_price.toFixed(2)}</span>
-            <span>${prev_odds_v ? "$" + prev_case_price.toFixed(2) : "?"}</span>
-        </span>
-        <span class="${case_prefix}-cell-title">CASE PRICE</span>
-        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(prev_case_price, cur_case_price) : ''}"></span>
-    </h5>
-    <h5>
-        <span class="${case_prefix}-cell-value">
-            <span>${"$" + odds_v.median_usd.toFixed(2)}</span>
-            <span>${prev_odds_v ? "$" + prev_odds_v.median_usd.toFixed(2) : "?"}</span>
-        </span>
-        <span class="${case_prefix}-cell-title">&#x2248;50%</span>
-        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.median_usd, prev_odds_v.median_usd) : ''}"></span>
-    </h5>
-    <h5>
-        <span class="${case_prefix}-cell-value">
-            <span>${((odds_v.median_usd / cur_case_price) * 100).toFixed(2) + "%"}</span>
-            <span>${prev_odds_v ? ((prev_odds_v.median_usd / prev_case_price) * 100).toFixed(2) + "%" : "?"}</span>
-        </span>
-        <span class="${case_prefix}-cell-title">AS PERCENT</span>
-        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.median_usd / cur_case_price, prev_odds_v.median_usd / prev_case_price) : ''}"></span>
-    </h5>
-</div>
-
-<div class="${case_prefix}-row">
-    <h5>BREAK EVEN ODDS:</h5>
-    <h5>
-        <span class="${case_prefix}-cell-value">
-            <span>${((odds_v.break_even_factor / odds_v.break_even_chance) / cur_case_price).toFixed(2) + "x"}</span>
-            <span>${prev_odds_v ? ((prev_odds_v.break_even_factor / prev_odds_v.break_even_chance) / prev_case_price).toFixed(2) + "x" : "?"}</span>
-        </span>
-        <span class="${case_prefix}-cell-title">PROFIT FACTOR</span>
-        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow((odds_v.break_even_factor / odds_v.break_even_chance) / cur_case_price, (prev_odds_v.break_even_factor / prev_odds_v.break_even_chance) / prev_case_price) : ''}"></span>
-    </h5>
-    <h5>
-        <span class="${case_prefix}-cell-value">
-            <span>${(odds_v.break_even_chance * 100).toFixed(2) + "%"}</span>
-            <span>${prev_odds_v ? (prev_odds_v.break_even_chance * 100).toFixed(2) + "%" : "?"}</span>
-        </span>
-        <span class="${case_prefix}-cell-title">CHANCE</span>
-        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.break_even_chance, prev_odds_v.break_even_chance) : ''}"></span>
-    </h5>
-</div>
-
-<div class="${case_prefix}-row">
-    <h5>JACKPOT:</h5>
-    <h5>
-        <span class="${case_prefix}-cell-value">
-            <span>${"$" + (odds_v.exclusive_usd / odds_v.exclusive_chance).toFixed(2)}</span>
-            <span>${prev_odds_v ? "$" + (prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance).toFixed(2) : "?"}</span>
-        </span>
-        <span class="${case_prefix}-cell-title">JACKPOT EV</span>
-        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.exclusive_usd / odds_v.exclusive_chance, prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance) : ''}"></span>
-    </h5>
-    <h5>
-        <span class="${case_prefix}-cell-value">
-            <span>${((odds_v.exclusive_usd / odds_v.exclusive_chance) / cur_case_price).toFixed(2) + "x"}</span>
-            <span>${prev_odds_v ? ((prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance) / prev_case_price).toFixed(2) + "x" : "?"}</span>
-        </span>
-        <span class="${case_prefix}-cell-title">PROFIT FACTOR</span>
-        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow((odds_v.exclusive_usd / odds_v.exclusive_chance) / cur_case_price, (prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance) / prev_case_price) : ''}"></span>
-    </h5>
-    <h5>
-        <span class="${case_prefix}-cell-value">
-            <span>${(odds_v.exclusive_chance * 100).toFixed(2) + "%"}</span>
-            <span>${prev_odds_v ? (prev_odds_v.exclusive_chance * 100).toFixed(2) + "%" : "?"}</span>
-        </span>
-        <span class="${case_prefix}-cell-title">CHANCE</span>
-        <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(odds_v.exclusive_chance, prev_odds_v.exclusive_chance) : ''}"></span>
-    </h5>
-</div>
-
-<p>ODDS UPDATED ? AGO</p>
-
-
-</div></div>
     `);
     $(selector).first().append(element_to_append);
 
@@ -194,6 +242,31 @@ scplus2.generate_case_page = async function() {
                 .addClass(`${case_prefix}-active-gen`);
         }
     });
+
+    function time_since(api_time) {
+        const now = new Date();
+        const past = new Date(api_time);
+        const diff_in_seconds = Math.floor((now - past) / 1000);
+
+        const intervals = [
+            { label: "YEAR", seconds: 31536000, over_text: true },
+            { label: "MONTH", seconds: 2592000 },
+            { label: "WEEK", seconds: 604800 },
+            { label: "DAY", seconds: 86400 },
+            { label: "HOUR", seconds: 3600 },
+            { label: "MINUTE", seconds: 60 },
+            { label: "SECOND", seconds: 1 },
+        ];
+
+        for (const interval of intervals) {
+            const count = Math.floor(diff_in_seconds / interval.seconds);
+            if (count >= 1) {
+                return `ODDS UPDATED
+                ${interval.over_text ? "OVER " : ""}${count}
+                ${interval.label}${count > 1 ? "S" : ""} AGO`
+            }
+        }
+    }
 
     function calc_arrow(p, n) {
         return p > n
