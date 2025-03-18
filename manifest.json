@@ -7,8 +7,15 @@
             "matches": ["https://skin.club/*"],
             "run_at": "document_start",
             "all_frames": true,
-            "css": ["skin_calc_plus_case_page_odds.css"],
-            "js": ["jquery-3.7.1.min.js", "skin_calc_plus_case_page_odds.js"]
+            "css": [
+                "scplus2_global.css",
+                "scplus2_case_page.css"
+            ],
+            "js": [
+                "jquery-3.7.1.min.js",
+                "scplus2_main.js",
+                "scplus2_case_page.js"
+            ]
         }
     ]
 }
