@@ -9,12 +9,14 @@
             "all_frames": true,
             "css": [
                 "scplus2_global.css",
-                "scplus2_case_page.css"
+                "scplus2_case_page.css",
+                "scplus2_giveaway_page.css"
             ],
             "js": [
                 "jquery-3.7.1.min.js",
                 "scplus2_main.js",
-                "scplus2_case_page.js"
+                "scplus2_case_page.js",
+                "scplus2_giveaway_page.js"
             ]
         }
     ]

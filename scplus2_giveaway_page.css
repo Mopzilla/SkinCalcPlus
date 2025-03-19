@@ -1,0 +1,72 @@
+.scplus2-g734-chance-container {
+    font-weight: 700;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    text-align: right;
+}
+
+.scplus2-g734-chance-header {
+    color: #9c9daf;
+    font-size: 8px;
+}
+
+.scplus2-g734-chance-text {
+    color: #827fff;
+    font-size: 12px;
+}
+
+.scplus2-g734-price-container {
+    font-weight: 700;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    text-align: left;
+}
+
+.scplus2-g734-price-header {
+    color: #9c9daf;
+    font-size: 8px;
+}
+
+.scplus2-g734-price-text {
+    color: #4af1b8;
+    font-size: 12px;
+}
+
+.scplus2-g734-table-wrapper {
+    background: #141224e6;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    padding: 16px 10px;
+    position: absolute;
+    text-transform: uppercase;
+    top: 0;
+    z-index: 2;
+
+    transition: opacity 0.3s, visibility 0.3s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.skins-list > div:hover .scplus2-g734-table-wrapper {
+    transition: opacity 0.3s, visibility 0.3s;
+    opacity: 1;
+    visibility: visible;
+}
+
+.scplus2-g734-table-row {
+    display: flex;
+    justify-content: center;
+}
+
+.scplus2-g734-table-cell {
+    overflow: hidden;
+    padding: 0 1px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
