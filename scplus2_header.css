@@ -1,0 +1,115 @@
+@font-face {
+    font-family: 'scplus2-eurostile';
+    src:
+        url('https://cfdn.skin.club/fonts/eurostile-extended/EurostileExtended.woff2') format('woff2'),
+        url('https://cfdn.skin.club/fonts/eurostile-extended/EurostileExtended.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.header-block-wrapper .sticky-profile{
+    clip-path: none !important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#scplus2-h917-sticky-container {
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    left: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#scplus2-h917-sticky-container .scplus2-h917-case {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 100%;
+    height: 30px;
+    background-size: 200% 150%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    transition: background-size 0.2s;
+}
+
+#scplus2-h917-sticky-container .scplus2-h917-case a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+}
+
+#scplus2-h917-sticky-container .scplus2-h917-case:has(a:hover) {
+    background-size: 150% 100%;
+    transition: background-size 0.2s;
+}
+
+#scplus2-h917-sticky-container .scplus2-h917-case a:hover span {
+    height: 12px;
+    transition: height 0.2s;
+}
+
+#scplus2-h917-sticky-container .scplus2-h917-case p {
+    overflow: hidden;
+    max-width: 100px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 1000;
+    font-family: 'scplus2-eurostile';
+    padding-top: 3px;
+}
+
+#scplus2-h917-sticky-container .scplus2-h917-case span {
+    height: 16px;
+    transition: height 0.2s;
+    background-color: #ffffff80;
+    width: 1px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+#scplus2-h917-sticky-container .scplus2-h917-case svg {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000c;
+    opacity: 0.9;
+
+    transition: opacity 0.2s;
+}
+
+#scplus2-h917-sticky-container .scplus2-h917-case svg:hover {
+    opacity: 0.1;
+    transition: opacity 0.2s;
+}
+
+#scplus2-h917-sticky-container #scplus2-h917-free-case {
+    background-image: radial-gradient(circle, #603B9CC0 0%, #000C 50%);
+    border-bottom-left-radius: 10px;
+}
+
+#scplus2-h917-sticky-container #scplus2-h917-premium-case {
+    background-image: radial-gradient(circle, #389333C0 0%, #000C 50%);
+}
+
+#scplus2-h917-sticky-container #scplus2-h917-email-giveaway-case {
+    background-image: radial-gradient(circle, #D8752DC0 0%, #000C 50%);
+    border-bottom-right-radius: 10px;
+}
+
+#scplus2-h917-sticky-container #scplus2-h917-free-case svg {
+    border-bottom-left-radius: 10px;
+}
+
+#scplus2-h917-sticky-container #scplus2-h917-email-giveaway-case svg {
+    border-bottom-right-radius: 10px;
+}

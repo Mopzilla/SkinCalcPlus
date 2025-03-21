@@ -14,6 +14,10 @@ scplus2.observer = new MutationObserver(() => {
             scplus2.generate_giveaway_page();
         }
     }
+
+    if (!scplus2.is_null_or_set_pending(".header-block-wrapper .sticky-profile .user-block")) {
+        scplus2.generate_header();
+    }
 });
 
 
