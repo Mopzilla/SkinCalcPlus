@@ -16,7 +16,7 @@ scplus2.generate_header = async function() {
         return;
     }
 
-    let sections_json, giveaway_json, remaining_time;
+    let sections_json, giveaway_json, remaining_time, end_time, seconds_left;
     await get_time_remaining();
 
     const head_prefix = `${scplus2.prefix}-h917`
@@ -42,32 +42,43 @@ scplus2.generate_header = async function() {
 
 
     async function countdown() {
-        while (remaining_time > 0) {
-            remaining_time--;
-            update_display();
-            await new Promise(resolve => setTimeout(resolve, 1000));
+        let hours_cache = null;
+        let minutes_cache = null;
+        let seconds_cache = null;
+
+        while (seconds_left > 0) {
+            seconds_left = Math.max(0, Math.round((end_time - Date.now()) / 1000));
+            const hours = Math.floor(seconds_left / 3600);
+            const minutes = Math.floor((seconds_left % 3600) / 60);
+            const seconds = seconds_left % 60;
+
+            if (hours != hours_cache) {
+                $(`.${head_prefix}-hours`).text(hours.toString().padStart(2, "0"));
+                hours_cache = hours;
+            }
+
+            if (minutes != minutes_cache) {
+                $(`.${head_prefix}-minutes`).text(minutes.toString().padStart(2, "0"));
+                minutes_cache = minutes;
+            }
+
+            if (seconds != seconds_cache) {
+                $(`.${head_prefix}-seconds`).text(seconds.toString().padStart(2, "0"));
+                seconds_cache = seconds;
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 250));
         }
 
         await handle_timer_end();
         countdown();
     }
 
-
-    function update_display() {
-        const hours = Math.floor(remaining_time / 3600);
-        const minutes = Math.floor((remaining_time % 3600) / 60);
-        const seconds = remaining_time % 60;
-
-        $(`.${head_prefix}-hours`).text(hours.toString().padStart(2, "0"));
-        $(`.${head_prefix}-minutes`).text(minutes.toString().padStart(2, "0"));
-        $(`.${head_prefix}-seconds`).text(seconds.toString().padStart(2, "0"));
-    }
-
-
+    
     async function handle_timer_end() {
         await get_time_remaining();
 
-        if (remaining_time > 0) {
+        if (seconds_left > 0) {
             return;
         }
 
@@ -77,14 +88,16 @@ scplus2.generate_header = async function() {
 
     async function get_time_remaining() {
         try {
-            const start_time = performance.now();
+            const perf_now = performance.now();
             sections_json = await $.getJSON(`https://gate.skin.club/apiv2/main-sections?page=1&per-page=100`);
-            const end_time = performance.now();
+            const perf_after = performance.now();
             sections_json = sections_json.data;
             giveaway_json = sections_json.filter(section => section.type === "time")[0];
             remaining_time = giveaway_json.cases[0].active_giveaway.remaining_time;
-            remaining_time -= (end_time - start_time) / 1000;
+            remaining_time -= (perf_after - perf_now) / 1000;
             remaining_time = Math.round(remaining_time);
+            end_time = Date.now() + remaining_time * 1000;
+            seconds_left = remaining_time;
         } catch (err) {
             alert(`failed to get main-sections from api`);
             return;
