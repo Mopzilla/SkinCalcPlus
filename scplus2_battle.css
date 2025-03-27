@@ -1,0 +1,12 @@
+.scplus2-b8926-personal-usd {
+    position: absolute;
+    z-index: 10;
+    top: 12px;
+    left: 12px;
+
+    transition: opacity 2s;
+}
+
+.battle-slot:has(.battle-state-finished) .scplus2-b8926-personal-usd {
+    opacity: 0.5;
+}

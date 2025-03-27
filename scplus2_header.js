@@ -82,7 +82,7 @@ scplus2.generate_header = async function() {
             return;
         }
 
-        await new Promise(resolve => setTimeout(resolve, 30000));
+        await new Promise(resolve => setTimeout(resolve, 60000));
     }
 
 
@@ -99,7 +99,7 @@ scplus2.generate_header = async function() {
             end_time = Date.now() + remaining_time * 1000;
             seconds_left = remaining_time;
         } catch (err) {
-            alert(`failed to get main-sections from api`);
+            console.log(`failed to get main-sections from api`);
             return;
         }
     }
