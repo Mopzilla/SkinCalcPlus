@@ -7,25 +7,52 @@ scplus2.generate_battles = async function() {
         return;
     }
 
+    // don't do anything to finished cases
+    if ($(".battle-state-finished").length) {
+        return;
+    }
+
     const battle_prefix = `${scplus2.prefix}-b8926`
-
     $(".battle-slot").append(`<span class="${battle_prefix}-personal-usd"></span>`);
+    // create gamemode specific elements:
+        // sharing mode = total USD
+        // 2v2 mode = team totals
+    
+    // add button to toggle scplus2 features for battle page, default to off
+    await update();
 
-    await set_personal_usd();
+
+    async function update() {
+        await set_personal_usd();
+        // set personal_usd color based on gamemode and ranking ()
+        // update gamemode specific elements
+
+        await new Promise(resolve => setTimeout(resolve, 250));
+        update();
+    }
+
 
     async function set_personal_usd() {
         if ($(".battle-state-finished").length) {
             return;
         }
+    
+        $(".battle-slot").each(function() {
+            const items = $(this).find(".drop-main-info__price");
+            const personal_usd = $(this).find(`.${battle_prefix}-personal-usd`);
 
-        // for each battle slot do:
-            // if price length == cache length (as data on span):
-                // return
-            // let new_usd
-            // for each price do:
-                // format price and add to new_usd
-            // set span text to new usd and span data to new length
+            // if the number of items are the same then don't recalculate the price
+            if (personal_usd.data("item-count") === items.length) {
+                return;
+            }
 
-        await new Promise(resolve => setTimeout(resolve, 250));
+            let new_usd = 0.0;
+            items.each(function() {
+                new_usd += parseFloat($(this).find(".currency-text").text());
+            });
+            new_usd = new_usd.toFixed(2);
+            personal_usd.text(`$${new_usd}`);
+            personal_usd.data("item-count", items.length);
+        });
     }
 }
