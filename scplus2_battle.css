@@ -1,12 +1,37 @@
 .scplus2-b8926-personal-usd {
     position: absolute;
     z-index: 10;
+    font-weight: 600;
     top: 12px;
     left: 12px;
-
-    transition: opacity 2s;
 }
 
-.battle-slot:has(.battle-state-finished) .scplus2-b8926-personal-usd {
-    opacity: 0.5;
+.battle-slot:has(.battle-state-finished) .scplus2-b8926-personal-usd,
+.scplus2-b8926-sharing-cont:has(~ .battle-slots .battle-state-finished){
+    transition: opacity 4s;
+    opacity: 0;
+}
+
+.scplus2-b8926-sharing-cont {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(0deg, #fa3671, 10%, #00000000);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    padding-bottom: 4px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-bottom: -16px;
+}
+
+.scplus2-b8926-sharing-cont span {
+    font-weight: 600;
+}
+
+.scplus2-b8926-sharing-cont.scplus2-b8926-positive {
+    background: linear-gradient(0deg, #4af1cc, 10%, #00000000);
 }
