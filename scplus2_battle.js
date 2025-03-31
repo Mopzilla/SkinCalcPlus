@@ -1,5 +1,7 @@
 window.scplus2 = window.scplus2 || {};
 
+let scplus2_show_battle_stats = false;
+
 
 scplus2.generate_battles = async function() {
     if (!$(".battle-slots")) {
@@ -22,9 +24,24 @@ scplus2.generate_battles = async function() {
             ? "sharing"
             : "default";
     
+    $(".battle-progress__roulette").append(`
+        <button id="${battle_prefix}-toggle-stats">
+            <span>SHOW STATS</span>
+            <span>HIDE STATS</span>
+        </button>
+    `);
+    $(`#${battle_prefix}-toggle-stats`).on("click", function () {
+        toggle_battle_stats();
+    });
     $(".battle-slot").append(`<span class="${battle_prefix}-personal-usd"></span>`);
     switch (gamemode) {
         case "team":
+            $(".battle-teams .battle-teams__team.is-ct").append(`
+                <span class="${battle_prefix}-team-usd ${battle_prefix}-ct">$99.99</span>
+            `);
+            $(".battle-teams .battle-teams__team.is-t").append(`
+                <span class="${battle_prefix}-team-usd ${battle_prefix}-t">$99.99</span>
+            `);
             break;
 
         case "sharing":
@@ -32,7 +49,7 @@ scplus2.generate_battles = async function() {
                 <div class="${battle_prefix}-sharing-cont">
                     <span style="margin-left: 6px; margin-right: 4px;">TOTAL: </span>
                     <span style="color: #4af1cc;" class="${battle_prefix}-sharing-total">$00.00</span>
-                    <span style="margin-left: 16px; margin-right: 4px;">YOUR SHARE: </span>
+                    <span style="margin-left: 16px; margin-right: 4px;">SPLIT: </span>
                     <span style="margin-right: 6px; color: #4af1cc;" class="${battle_prefix}-sharing-split">$00.00</span>
                 </div>
             `);
@@ -41,12 +58,8 @@ scplus2.generate_battles = async function() {
         case "default":
             break;
     }
-
-    // create gamemode specific elements:
-        // sharing mode = total USD
-        // 2v2 mode = team totals
     
-    // add button to toggle scplus2 features for battle page, default to off
+    toggle_battle_stats(false);
     await update();
 
 
@@ -62,10 +75,12 @@ scplus2.generate_battles = async function() {
         }
 
         await update_personal_usd();
-        // set personal_usd color based on gamemode and ranking ()
 
         switch (gamemode) {
             case "team":
+                await update_team_content("ct");
+                await update_team_content("t");
+                await update_team_color();
                 break;
     
             case "sharing":
@@ -78,6 +93,63 @@ scplus2.generate_battles = async function() {
 
         await new Promise(resolve => setTimeout(resolve, 250));
         update();
+    }
+
+
+    function toggle_battle_stats(update_toggle = true) {
+        if (update_toggle) {
+            scplus2_show_battle_stats = !scplus2_show_battle_stats;
+        }
+
+        if (scplus2_show_battle_stats) {
+            $(`#${battle_prefix}-toggle-stats`).removeClass(`${battle_prefix}-hidden`);
+            $(`.${battle_prefix}-personal-usd`).removeClass(`${battle_prefix}-hidden`);
+            $(`.${battle_prefix}-team-usd`).removeClass(`${battle_prefix}-hidden`);
+            $(`.${battle_prefix}-sharing-cont`).removeClass(`${battle_prefix}-hidden`);
+        } else {
+            $(`#${battle_prefix}-toggle-stats`).addClass(`${battle_prefix}-hidden`);
+            $(`.${battle_prefix}-personal-usd`).addClass(`${battle_prefix}-hidden`);
+            $(`.${battle_prefix}-team-usd`).addClass(`${battle_prefix}-hidden`);
+            $(`.${battle_prefix}-sharing-cont`).addClass(`${battle_prefix}-hidden`);
+        }
+    }
+
+
+    async function update_team_color() {
+        let min_val = Infinity;
+        let max_val = 0.0;
+
+        $(`.${battle_prefix}-team-usd`).each(function () {
+            min_val = Math.min(min_val, $(this).data("usd"));
+            max_val = Math.max(max_val, $(this).data("usd"));
+        });
+
+        $(`.${battle_prefix}-team-usd`).each(function () {
+            $(this).css("color", scplus2.get_hex_col_from_range(
+                crazy ? max_val : min_val,
+                (min_val + max_val) / 2,
+                crazy ? min_val : max_val,
+                $(this).data("usd")
+            ));
+        });
+    }
+
+
+    async function update_team_content(team) {
+        const team_total = $(`.${battle_prefix}-${team}`);
+
+        let team_usd = 0.0;
+        $(`.${battle_prefix}-personal-usd`).each(function () {
+            team_usd += $(this).data("team") === team ? parseFloat($(this).data("usd")) : 0.0;
+        });
+        team_usd = team_usd.toFixed(2);
+
+        if (team_total.data("usd") === team_usd) {
+            return;
+        }
+
+        team_total.text(`$${team_usd}`);
+        team_total.data("usd", team_usd);
     }
 
 
@@ -113,9 +185,14 @@ scplus2.generate_battles = async function() {
 
 
     async function update_personal_usd() {
+        let min_val = Infinity;
+        let max_val = 0.0;
+
         $(".battle-slot").each(function() {
             const items = $(this).find(".drop-main-info__price");
             const personal_usd = $(this).find(`.${battle_prefix}-personal-usd`);
+            const is_t = $(this).find("div.battle-slot-player.is-t-team").length;
+            const is_ct = $(this).find("div.battle-slot-player.is-ct-team").length;
 
             // if the number of items are the same then don't recalculate the price
             if (personal_usd.data("item-count") === items.length) {
@@ -130,6 +207,19 @@ scplus2.generate_battles = async function() {
             personal_usd.text(`$${new_usd}`);
             personal_usd.data("item-count", items.length);
             personal_usd.data("usd", new_usd);
+            personal_usd.data("team", is_t ? "t" : is_ct ? "ct" : null);
+            
+            min_val = Math.min(min_val, new_usd);
+            max_val = Math.max(max_val, new_usd);
+        });
+
+        $(`.${battle_prefix}-personal-usd`).each(function() {
+            $(this).css("color", scplus2.get_hex_col_from_range(
+                crazy ? max_val : min_val,
+                (min_val + max_val) / 2,
+                crazy ? min_val : max_val,
+                $(this).data("usd")
+            ));
         });
     }
 }

@@ -4,6 +4,8 @@
     font-weight: 600;
     top: 12px;
     left: 12px;
+
+    transition: opacity 0.25s;
 }
 
 .battle-slot:has(.battle-state-finished) .scplus2-b8926-personal-usd,
@@ -26,6 +28,8 @@
     padding-left: 12px;
     padding-right: 12px;
     margin-bottom: -16px;
+
+    transition: opacity 0.25s;
 }
 
 .scplus2-b8926-sharing-cont span {
@@ -34,4 +38,85 @@
 
 .scplus2-b8926-sharing-cont.scplus2-b8926-positive {
     background: linear-gradient(0deg, #4af1cc, 10%, #00000000);
+}
+
+.battle-teams .battle-teams__team {
+    position: relative;
+}
+
+.battle-teams__team:has(.team__aside .battle-teams-total) .scplus2-b8926-team-usd {
+    opacity: 0;
+    margin-top: -60px;
+    transition: opacity 4s, margin-top 4s;
+}
+
+.scplus2-b8926-team-usd {
+    position: absolute;
+    opacity: 1;
+    margin-top: 0;
+    font-weight: 600;
+    transition: opacity 0.25s;
+}
+
+.scplus2-b8926-team-usd.scplus2-b8926-ct {
+    margin-right: 20px;
+    right: 0;
+}
+
+.scplus2-b8926-team-usd.scplus2-b8926-t {
+    margin-left: 20px;
+    left: 0;
+}
+
+#scplus2-b8926-toggle-stats {
+    position: absolute;
+    bottom: 0;
+    right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #282546;
+    height: 36px;
+    min-width: 160px;
+
+    clip-path: polygon(0 100%,100% 100%,calc(100% - 20px) 0,20px 0);
+    transition: background-color 0.25s ease-out;
+}
+
+#scplus2-b8926-toggle-stats.scplus2-b8926-hidden {
+    opacity: 1 !important;
+}
+
+.scplus2-b8926-hidden {
+    opacity: 0;
+}
+
+#scplus2-b8926-toggle-stats:hover {
+    background-color: #322e57;
+}
+
+#scplus2-b8926-toggle-stats:active {
+    background-color: #282546;
+}
+
+#scplus2-b8926-toggle-stats span {
+    font-weight: 700;
+    font-size: 12px;
+    color: #9793c7;
+}
+
+#scplus2-b8926-toggle-stats.scplus2-b8926-hidden span:first-child {
+    display: initial;
+}
+
+#scplus2-b8926-toggle-stats.scplus2-b8926-hidden span:last-child {
+    display: none;
+}
+
+#scplus2-b8926-toggle-stats span:first-child {
+    display: none;
+}
+
+#scplus2-b8926-toggle-stats span:last-child {
+    display: initial;
 }

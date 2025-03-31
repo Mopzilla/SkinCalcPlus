@@ -85,7 +85,7 @@ scplus2.generate_case_page = async function() {
             </h5>
             <h5>
                 <span class="${case_prefix}-cell-value">
-                    <span style="color: ${get_hex_col_from_range(
+                    <span style="color: ${scplus2.get_hex_col_from_range(
                             89.5,
                             90,
                             90.5,
@@ -248,26 +248,6 @@ scplus2.generate_case_page = async function() {
                 .addClass(`${case_prefix}-active-gen`);
         }
     });
-
-
-    function get_hex_col_from_range(min, avg, max, val) {
-        var color_range = [
-            "#FA3671",      // 0%
-            "#FB6895",      // 12.5%
-            "#FD9BB8",      // 25%
-            "#FECDDC",      // 37.5%
-            "#FFFFFF",      // 50%
-            "#C9F1E5",      // 62.5%
-            "#93E4CB",      // 75%
-            "#5CD6B1",      // 87.5%
-            "#26C897",      // 100%
-        ];
-    
-        var val_normalized = 0.5 + ((val - avg) / (2 * (max - min)));
-        var col_index = Math.round(val_normalized * (color_range.length - 1));
-    
-        return color_range[col_index];
-    }
 
 
     function time_since(api_time) {
