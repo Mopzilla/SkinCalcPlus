@@ -7,7 +7,7 @@
 View advanced info about each case's odds, such as how risky the case is or how big the jackpot pays out.
 ![advanced odds statistics aside the case](./case_page.gif)
 ## sticky giveaway timers
-Each giveaway case has it's timer appended underneath the sticky header, allowing you to see it on all pages - anywhere on the page.
+Each giveaway case has it's timer appended underneath the sticky header, allowing you to see it on all pages.
 You can also click the timers to be redirected to relevant giveaway case!
 ![giveaway case timers under sticky header, can be clicked](./sticky_header.gif)
 ## level milestone calculator
@@ -23,10 +23,10 @@ For people who like the guessing game and seeing the big reveal at the end, the 
 For sharing mode battles a number displays the total value of all items pulled so far, as well as displaying the split each player will receive.
 If you manage to hit positive, the red underline will change to green to show it immediately!
 ![shows total sharing pool and split for sharing mode](./sharing_mode.gif)
-## team pool
+### team pool
 For team battles you can see the total value of items per team so you can see which team is ahead.
 ![shows which team is winning in a team battle](./team_battle.gif)
-## crazy mode support
+### crazy mode support
 When crazy mode is enabled the colors are inverted, so the lowest valued battle slot shows as green as opposed to the highest.
 This also applies to the team pools.
 ![green and red colors get inverted for crazy mode](./crazy_mode.gif)
