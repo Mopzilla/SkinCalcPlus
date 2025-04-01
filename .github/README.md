@@ -1,0 +1,7 @@
+![advanced odds statistics aside the case](./case_page.gif)
+![green and red colors get inverted for crazy mode](./crazy_mode.gif)
+![prices and chances of giveaway case items](./giveaway.png)
+![amount of xp/usd required to hit next daily case milestone](./req_xp.png)
+![shows total sharing pool and split for sharing mode](./sharing_mode.gif)
+![giveaway case timers under sticky header, can be clicked](./sticky_header.gif)
+![shows which team is winning in a team battle](./team_battle.gif)
