@@ -62,9 +62,13 @@ scplus2.generate_case_page = async function() {
         <div class="${case_prefix}-row">
             <h5>EXPECTED VALUE:</h5>
             <h5>
-                <span class="${case_prefix}-cell-value">
-                    <span>${Math.ceil(1 / odds_v.rarest_item_chance)}</span>
-                    <span>${prev_odds_v ? Math.ceil(1 / prev_odds_v.rarest_item_chance) : "?"}</span>
+                <span title=
+"The approximate number of cases you need to open to hit the rarest item in the case.
+
+Reaching the expected value relies upon hitting the rarest item." 
+                class="${case_prefix}-cell-value">
+                    <span>&asymp;${Math.ceil(1 / odds_v.rarest_item_chance)}</span>
+                    <span>&asymp;${prev_odds_v ? Math.ceil(1 / prev_odds_v.rarest_item_chance) : "?"}</span>
                 </span>
                 <span class="${case_prefix}-cell-title">AVG. CASES</span>
                 <span class="${case_prefix}-change ${prev_odds_v ? calc_arrow(
@@ -73,7 +77,11 @@ scplus2.generate_case_page = async function() {
                 ) : ''}"></span>
             </h5>
             <h5>
-                <span class="${case_prefix}-cell-value">
+                <span title=
+"The expected value of the case.
+
+This is calculated by taking the value of each outcome and multiplying it by the probability of it occuring."
+                class="${case_prefix}-cell-value">
                     <span>${"$" + odds_v.total_ev.toFixed(2)}</span>
                     <span>${prev_odds_v ? "$" + prev_odds_v.total_ev.toFixed(2) : "?"}</span>
                 </span>
@@ -84,7 +92,11 @@ scplus2.generate_case_page = async function() {
                 ) : ''}"></span>
             </h5>
             <h5>
-                <span class="${case_prefix}-cell-value">
+                <span title=
+"The expected value as a percentage against the price of the case.
+
+This value is almost always 90%, with some outliers. If a case has a value greater than 90% it will show as green, and worse than 90% shows as red."
+                class="${case_prefix}-cell-value">
                     <span style="color: ${scplus2.get_hex_col_from_range(
                             89.5,
                             90,
@@ -119,7 +131,11 @@ scplus2.generate_case_page = async function() {
                 ) : ''}"></span>
             </h5>
             <h5>
-                <span class="${case_prefix}-cell-value">
+                <span title=
+"The median return is the value you can expect to receive for half of your openings. Half of the time you will hit below this value, and half the time hit above it.
+
+This is calculated by adding up the percent chances of items from lowest value to highest value until the percent hits 50%, then the item that caused it to hit 50% is used as the median return."
+                class="${case_prefix}-cell-value">
                     <span>${"$" + odds_v.median_usd.toFixed(2)}</span>
                     <span>${prev_odds_v ? "$" + prev_odds_v.median_usd.toFixed(2) : "?"}</span>
                 </span>
@@ -130,7 +146,11 @@ scplus2.generate_case_page = async function() {
                 ) : ''}"></span>
             </h5>
             <h5>
-                <span class="${case_prefix}-cell-value">
+                <span title=
+"The median return represented as a percentage against the price of the case.
+
+This value ranges massively, I have seen some as low as 1% and some as high as 85%. Higher values are better, but typically high median return cases will have other shortcomings such as low EV or small jackpots."
+                class="${case_prefix}-cell-value">
                     <span>${((odds_v.median_usd / cur_case_price) * 100).toFixed(2) + "%"}</span>
                     <span>${prev_odds_v ? ((
                             prev_odds_v.median_usd / prev_case_price
@@ -147,7 +167,11 @@ scplus2.generate_case_page = async function() {
         <div class="${case_prefix}-row">
             <h5>BREAK EVEN ODDS:</h5>
             <h5>
-                <span class="${case_prefix}-cell-value">
+                <span title=
+"The break even return as a factor against the price of the case.
+
+For example a break even chance of 20% and a profit factor of 2x means you break even on average 20% of the time, and you are expected to gain 2x the price of the case."
+                class="${case_prefix}-cell-value">
                     <span>${((
                             odds_v.break_even_factor / odds_v.break_even_chance
                     ) / cur_case_price).toFixed(2) + "x"}</span>
@@ -162,7 +186,11 @@ scplus2.generate_case_page = async function() {
                 ) : ''}"></span>
             </h5>
             <h5>
-                <span class="${case_prefix}-cell-value">
+                <span title=
+"The percent chance to break even.
+
+This is calculated by adding up all the percent chances for items whose value is greater than that of the case price."
+                class="${case_prefix}-cell-value">
                     <span>${(odds_v.break_even_chance * 100).toFixed(2) + "%"}</span>
                     <span>${prev_odds_v ? (prev_odds_v.break_even_chance * 100).toFixed(2) + "%" : "?"}</span>
                 </span>
@@ -177,7 +205,11 @@ scplus2.generate_case_page = async function() {
         <div class="${case_prefix}-row">
             <h5>JACKPOT:</h5>
             <h5>
-                <span class="${case_prefix}-cell-value">
+                <span title=
+"The expected value of the jackpot, which is either the items that constitute for an exclusive drop or the top item if there are no exclusives. (which is rare)
+
+This is calculated the same as the total EV, except it only takes into account the jackpot."
+                class="${case_prefix}-cell-value">
                     <span>${"$" + (odds_v.exclusive_usd / odds_v.exclusive_chance).toFixed(2)}</span>
                     <span>${prev_odds_v ? "$" + (
                             prev_odds_v.exclusive_usd / prev_odds_v.exclusive_chance
@@ -190,7 +222,9 @@ scplus2.generate_case_page = async function() {
                 ) : ''}"></span>
             </h5>
             <h5>
-                <span class="${case_prefix}-cell-value">
+                <span title=
+"The expected value of the jackpot as a profit factor against the cost of the case."
+                class="${case_prefix}-cell-value">
                     <span>${((
                             odds_v.exclusive_usd / odds_v.exclusive_chance
                     ) / cur_case_price).toFixed(2) + "x"}</span>
@@ -205,7 +239,11 @@ scplus2.generate_case_page = async function() {
                 ) : ''}"></span>
             </h5>
             <h5>
-                <span class="${case_prefix}-cell-value">
+                <span title=
+"The chance of hitting a jackpot in this case. A jackpot is any item that is in the exclusive drop pool, or the top item in the case if no exclusives exist. (which is rare)
+
+This is calculated by just adding the percent chances of each exclusive drop together."
+                class="${case_prefix}-cell-value">
                     <span>${(odds_v.exclusive_chance * 100).toFixed(2) + "%"}</span>
                     <span>${prev_odds_v ? (prev_odds_v.exclusive_chance * 100).toFixed(2) + "%" : "?"}</span>
                 </span>

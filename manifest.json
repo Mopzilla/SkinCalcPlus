@@ -12,7 +12,8 @@
                 "scplus2_case_page.css",
                 "scplus2_giveaway_page.css",
                 "scplus2_header.css",
-                "scplus2_battle.css"
+                "scplus2_battle.css",
+                "scplus2_profile.css"
             ],
             "js": [
                 "jquery-3.7.1.min.js",
@@ -20,7 +21,8 @@
                 "scplus2_case_page.js",
                 "scplus2_giveaway_page.js",
                 "scplus2_header.js",
-                "scplus2_battle.js"
+                "scplus2_battle.js",
+                "scplus2_profile.js"
             ]
         }
     ]

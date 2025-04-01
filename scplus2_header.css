@@ -7,6 +7,21 @@
     font-style: normal;
 }
 
+#scplus2-h917-github-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#scplus2-h917-github-link span {
+    font-size: 13px;
+    font-weight: 500;
+    color: #84819a;
+    margin-left: 8px;
+    border-bottom: 1px solid #84819a;
+    margin-bottom: 2px;
+}
+
 .header-block-wrapper .sticky-profile{
     clip-path: none !important;
     border-top-left-radius: 10px;

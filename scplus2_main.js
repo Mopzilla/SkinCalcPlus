@@ -22,6 +22,10 @@ scplus2.observer = new MutationObserver(() => {
     if (!scplus2.is_null_or_set_pending(".battle-slots")) {
         scplus2.generate_battles();
     }
+
+    if (!scplus2.is_null_or_set_pending(".user-level .user-level__xp-info")) {
+        scplus2.generate_profile();
+    }
 });
 
 
