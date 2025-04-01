@@ -22,6 +22,7 @@ The prices and chances of each item in the giveaway cases are displayed on the s
 ![prices and chances of giveaway case items](./giveaway.png)
 ## Live Battle Tracker
 Battles are tracked live allowing you to determine the winner before the battle has finished without having to add it up yourself.
+
 For people who like the guessing game and seeing the big reveal at the end, the stats are hidden by default and must be enabled by pressing the "SHOW STATS" button!
 ### Sharing Mode Pool
 For sharing mode battles a number displays the total value of all items pulled so far, as well as displaying the split each player will receive.
