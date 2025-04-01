@@ -7,7 +7,6 @@
 View advanced info about each case's odds, such as how risky the case is or how big the jackpot pays out.
 
 ![advanced odds statistics aside the case](./case_page.gif)
-<img src="./case_page.gif" width="830px">
 ## Sticky Giveaway Timers
 Each giveaway case has it's timer appended underneath the sticky header, allowing you to see it on all pages.
 
