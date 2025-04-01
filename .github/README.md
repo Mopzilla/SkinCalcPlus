@@ -41,3 +41,8 @@ When crazy mode is enabled the colors are inverted, so the lowest valued battle 
 This also applies to the team pools.
 
 ![green and red colors get inverted for crazy mode](./crazy_mode.gif)
+
+# INSTALLATION
+## From Chrome Web Store
+## From Firefox Add-ons
+## From GitHub Releases
