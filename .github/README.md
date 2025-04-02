@@ -1,4 +1,21 @@
 # OVERVIEW
+- [Overview](#overview)
+- [Disclaimer](#disclaimer)
+- [Features](#features)
+  - [Case Page Statistics](#case-page-statistics)
+  - [Sticky Giveaway Timers](#sticky-giveaway-timers)
+  - [Level Milestone Calculator](#level-milestone-calculator)
+  - [Displayed Giveaway Odds](#displayed-giveaway-odds)
+  - [Live Battle Tracker](#live-battle-tracker)
+    - [Sharing Mode Pool](#sharing-mode-pool)
+    - [Team Pool](#team-pool)
+    - [Crazy Mode Support](#crazy-mode-support)
+- [Installation](#installation)
+  - [From Firefox Add-ons](#from-firefox-add-ons)
+  - [From Chrome Web Store](#from-chrome-web-store)
+  - [From GitHub Releases](#from-github-releases)
+    - [Installation Guide for Firefox](#installation-guide-for-firefox)
+    - [Installation Guide for Chrome](#installation-guide-for-chrome)
 
 # DISCLAIMER
 SKinCalcPlus is an **independent passion project** created to further my skills in browser extension development and serve as part of my portfolio. This extension is **not affiliated with, or endorsed by, Skin.Club in any way.**
@@ -48,10 +65,10 @@ This also applies to the team pools.
 ![green and red colors get inverted for crazy mode](./crazy_mode.gif)
 
 # INSTALLATION
-## From Chrome Web Store
-Pending review to be submitted to Chrome Web Store
 ## From Firefox Add-ons
 [Click Here](https://addons.mozilla.org/en-US/firefox/addon/skincalcplus/) to visit the Add-On page for SkinCalcPlus!
+## From Chrome Web Store
+Pending review to be submitted to Chrome Web Store
 ## From GitHub Releases
 ### Installation Guide for Firefox
 1. Download the latest release from GitHub Releases
