@@ -26,7 +26,7 @@ SkinCalcPlus is an **independent passion project** created to further my skills 
 
 Its purpose is **not** to undermine or compete with Skin.Club, but rather to demonstrate my ability to **analyze, improve, and develop practical browser enhancements.**
 
-**USE AT YOUR OWN RISK!** This extension operates **independently** and **could** Skin.Club's Terms of Service against third-party tools, and I am **not responsible** for any consequences resulting from its use.
+**USE AT YOUR OWN RISK!** This extension operates **independently** and **could** violate Skin.Club's Terms of Service against third-party tools, and I am **not responsible** for any consequences resulting from its use.
 
 # FEATURES
 ## Case Page Statistics
@@ -48,7 +48,7 @@ The prices and chances of each item in the giveaway cases are displayed on the s
 
 ![prices and chances of giveaway case items](./giveaway.png)
 ## Live Battle Tracker
-Live battle tracking lets you determine the winner before the battle ends, no adding in your head necessary.
+Live battle tracking lets you determine the winner before the battle ends - no manual calculations needed.
 
 Prefer the suspense of not knowing the winner? Stats are hidden by default and can be enabled with the "SHOW STATS" button!
 ### Sharing Mode Pool
@@ -72,7 +72,7 @@ This also applies to the team pools.
 ## From Firefox Add-ons
 [Click here](https://addons.mozilla.org/en-US/firefox/addon/skincalcplus/) to visit the Add-On page for SkinCalcPlus!
 ## From Chrome Web Store
-Submission to the Chrome Weeb Store is pending review.
+Submission to the Chrome Web Store is pending review.
 ## From GitHub Releases
 ### Installation Guide for Firefox
 1. Download the latest release from GitHub Releases
