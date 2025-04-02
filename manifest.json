@@ -25,5 +25,10 @@
                 "scplus2_profile.js"
             ]
         }
-    ]
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "SkinCalcPlus@Mopzilla"
+        }
+    }
 }

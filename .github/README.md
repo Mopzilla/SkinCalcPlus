@@ -45,4 +45,5 @@ This also applies to the team pools.
 # INSTALLATION
 ## From Chrome Web Store
 ## From Firefox Add-ons
+[Click Here](https://addons.mozilla.org/en-US/firefox/addon/skincalcplus/) to visit the Add-On page for SkinCalcPlus!
 ## From GitHub Releases
