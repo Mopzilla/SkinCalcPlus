@@ -1,7 +1,7 @@
 # OVERVIEW
 
 # DISCLAIMER
-SKinCalcPlus is an **independent passion project** created to further my skills in browser extension development and serve as part of my portfolio. THis extension is **not affiliated with, or endorsed by, Skin.Club in any way.**
+SKinCalcPlus is an **independent passion project** created to further my skills in browser extension development and serve as part of my portfolio. This extension is **not affiliated with, or endorsed by, Skin.Club in any way.**
 
 Its purpose is **not** to undermine or compete with Skin.Club, but rather to demonstrate my ability to **analyze, improve, and develop practical browser enhancements.**
 
@@ -49,6 +49,18 @@ This also applies to the team pools.
 
 # INSTALLATION
 ## From Chrome Web Store
+Pending review to be submitted to Chrome Web Store
 ## From Firefox Add-ons
 [Click Here](https://addons.mozilla.org/en-US/firefox/addon/skincalcplus/) to visit the Add-On page for SkinCalcPlus!
 ## From GitHub Releases
+### Installation Guide for Firefox
+1. Download the latest release from GitHub Releases
+2. Navigate to about:debugging in your Firefox browser
+3. Click the tab labled "This Firefox"
+4. Under "Temporary Extensions" click "Load Temporary Add-on..."
+5. Select SkinCalcPlus.zip
+### Installation Guide for Chrome
+1. Download the latest release from GitHub Releases
+2. Navigate to chrome://extensions/ and enable "Developer mode" top right
+3. Click "Load unpacked extension"
+4. Select SkinCalcPlus.zip
