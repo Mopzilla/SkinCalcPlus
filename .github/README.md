@@ -79,9 +79,9 @@ Submission to the Chrome Web Store is pending review.
 2. Navigate to `about:debugging` in your Firefox browser
 3. Click the tab labeled "This Firefox"
 4. Under "Temporary Extensions", click "Load Temporary Add-on..."
-5. Select SkinCalcPlus.zip
+5. Select `SkinCalcPlus.zip`
 ### Installation Guide for Chrome
 1. Download the latest release from GitHub Releases
-2. Navigate to `chrome://extensions/` and enable "Developer mode" top right
-3. Click "Load unpacked extension"
-4. Select SkinCalcPlus.zip
+2. Navigate to `chrome://extensions/`
+3. Enable "Developer mode" top right
+4. Drag `SkinCalcPlus.zip` onto the page (or unzip and click load unpacked)
