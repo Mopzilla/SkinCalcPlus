@@ -1,4 +1,7 @@
 # OVERVIEW
+SkinCalcPlus (or SC+ for short) is a browser extension that enhances the Skin.Club experience by adding useful features such as case statistics, giveaway odds, live battle tracking, and more.
+
+Whether you're looking to analyze case risks, track battle results in real time, or optimize your spending, SkinCalcPlus provides powerful tools to improve your experience.
 ## Table of Contents
 - [Overview](#overview)
 - [Disclaimer](#disclaimer)
@@ -19,11 +22,11 @@
     - [Installation Guide for Chrome](#installation-guide-for-chrome)
 
 # DISCLAIMER
-SKinCalcPlus is an **independent passion project** created to further my skills in browser extension development and serve as part of my portfolio. This extension is **not affiliated with, or endorsed by, Skin.Club in any way.**
+SkinCalcPlus is an **independent passion project** created to further my skills in browser extension development and serve as part of my portfolio. This extension is **not affiliated with, or endorsed by, Skin.Club in any way.**
 
 Its purpose is **not** to undermine or compete with Skin.Club, but rather to demonstrate my ability to **analyze, improve, and develop practical browser enhancements.**
 
-**USE AT YOUR OWN RISK!** This extension may breach Skin.Club's Terms of Service against third-party tools, and I am **not responsible** for any consequences resulting from its use.
+**USE AT YOUR OWN RISK!** This extension operates **independently** and **could** Skin.Club's Terms of Service against third-party tools, and I am **not responsible** for any consequences resulting from its use.
 
 # FEATURES
 ## Case Page Statistics
@@ -31,9 +34,9 @@ View advanced info about each case's odds, such as how risky the case is or how 
 
 ![advanced odds statistics aside the case](./case_page.gif)
 ## Sticky Giveaway Timers
-Each giveaway case has it's timer appended underneath the sticky header, allowing you to see it on all pages.
+Each giveaway case has its timer appended underneath the sticky header, allowing you to see it on all pages.
 
-You can also click the timers to be redirected to relevant giveaway case!
+Clicking a timer redirects you to its respective giveaway case!
 
 ![giveaway case timers under sticky header, can be clicked](./sticky_header.gif)
 ## Level Milestone Calculator
@@ -45,9 +48,9 @@ The prices and chances of each item in the giveaway cases are displayed on the s
 
 ![prices and chances of giveaway case items](./giveaway.png)
 ## Live Battle Tracker
-Battles are tracked live allowing you to determine the winner before the battle has finished without having to add it up yourself.
+Live battle tracking lets you determine the winner before the battle ends, no adding in your head necessary.
 
-For people who like the guessing game and seeing the big reveal at the end, the stats are hidden by default and must be enabled by pressing the "SHOW STATS" button!
+Prefer the suspense of not knowing the winner? Stats are hidden by default and can be enabled with the "SHOW STATS" button!
 ### Sharing Mode Pool
 For sharing mode battles a number displays the total value of all items pulled so far, as well as displaying the split each player will receive.
 
@@ -59,7 +62,7 @@ For team battles you can see the total value of items per team so you can see wh
 
 ![shows which team is winning in a team battle](./team_battle.gif)
 ### Crazy Mode Support
-When crazy mode is enabled the colors are inverted, so the lowest valued battle slot shows as green as opposed to the highest.
+In Crazy Mode, colors are inverted: the lowest-value battle slot appears green instead of the highest.
 
 This also applies to the team pools.
 
@@ -67,18 +70,18 @@ This also applies to the team pools.
 
 # INSTALLATION
 ## From Firefox Add-ons
-[Click Here](https://addons.mozilla.org/en-US/firefox/addon/skincalcplus/) to visit the Add-On page for SkinCalcPlus!
+[Click here](https://addons.mozilla.org/en-US/firefox/addon/skincalcplus/) to visit the Add-On page for SkinCalcPlus!
 ## From Chrome Web Store
-Pending review to be submitted to Chrome Web Store
+Submission to the Chrome Weeb Store is pending review.
 ## From GitHub Releases
 ### Installation Guide for Firefox
 1. Download the latest release from GitHub Releases
-2. Navigate to about:debugging in your Firefox browser
-3. Click the tab labled "This Firefox"
-4. Under "Temporary Extensions" click "Load Temporary Add-on..."
+2. Navigate to `about:debugging` in your Firefox browser
+3. Click the tab labeled "This Firefox"
+4. Under "Temporary Extensions", click "Load Temporary Add-on..."
 5. Select SkinCalcPlus.zip
 ### Installation Guide for Chrome
 1. Download the latest release from GitHub Releases
-2. Navigate to chrome://extensions/ and enable "Developer mode" top right
+2. Navigate to `chrome://extensions/` and enable "Developer mode" top right
 3. Click "Load unpacked extension"
 4. Select SkinCalcPlus.zip
