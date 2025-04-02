@@ -2,7 +2,9 @@
 
 # DISCLAIMER
 SKinCalcPlus is an **independent passion project** created to further my skills in browser extension development and serve as part of my portfolio. THis extension is **not affiliated with, or endorsed by, Skin.Club in any way.**
+
 Its purpose is **not** to undermine or compete with Skin.Club, but rather to demonstrate my ability to **analyze, improve, and develop practical browser enhancements.**
+
 **USE AT YOUR OWN RISK!** This extension may breach Skin.Club's Terms of Service against third-party tools, and I am **not responsible** for any consequences resulting from its use.
 
 # FEATURES
