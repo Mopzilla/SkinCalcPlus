@@ -70,9 +70,10 @@ This also applies to the team pools.
 
 # INSTALLATION
 ## From Firefox Add-ons
+currently awaiting review.
 [Click here](https://addons.mozilla.org/en-US/firefox/addon/skincalcplus/) to visit the Add-On page for SkinCalcPlus!
 ## From Chrome Web Store
-Submission to the Chrome Web Store is pending review.
+[Click here](https://chromewebstore.google.com/detail/skincalcplus/egpchokkklgcioeoofcchokhjkmojcme) to visit the Chrome Web Store page for SkinCalcPlus!
 ## From GitHub Releases
 ### Installation Guide for Firefox
 1. Download the latest release from GitHub Releases
