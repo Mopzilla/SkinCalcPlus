@@ -85,3 +85,9 @@ This also applies to the team pools.
 2. Navigate to `chrome://extensions/`
 3. Enable "Developer mode" top right
 4. Drag `SkinCalcPlus.zip` onto the page (or unzip and click load unpacked)
+
+
+## Support Me as a Developer
+If you like my work and want to support me, you can:
+- (Buy Me a Coffee)[https://buymeacoffee.com/mopzilla]
+- (Donate Steam Items such as CS2 Skins)[https://steamcommunity.com/tradeoffer/new/?partner=118170564&token=r085WqK9]
