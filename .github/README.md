@@ -20,6 +20,7 @@ Whether you're looking to analyze case risks, track battle results in real time,
   - [From GitHub Releases](#from-github-releases)
     - [Installation Guide for Firefox](#installation-guide-for-firefox)
     - [Installation Guide for Chrome](#installation-guide-for-chrome)
+- [Support Me as a Developer](#support-me-as-a-developer)
 
 # DISCLAIMER
 SkinCalcPlus is an **independent passion project** created to further my skills in browser extension development and serve as part of my portfolio. This extension is **not affiliated with, or endorsed by, Skin.Club in any way.**
