@@ -90,5 +90,5 @@ This also applies to the team pools.
 
 ## Support Me as a Developer
 If you like my work and want to support me, you can:
-- [Buy Me a Coffee](https://buymeacoffee.com/mopzilla)
 - [Donate Steam Items such as CS2 Skins](https://steamcommunity.com/tradeoffer/new/?partner=118170564&token=r085WqK9)
+- [Buy Me a Coffee](https://buymeacoffee.com/mopzilla)
