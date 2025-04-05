@@ -4,7 +4,7 @@ SkinCalcPlus (or SC+ for short) is a browser extension that enhances the Skin.Cl
 Whether you're looking to analyze case risks, track battle results in real time, or optimize your spending, SkinCalcPlus provides powerful tools to improve your experience.
 
 Have any questions, ideas, or want to discuss SC+ in general?
-[Head over to the discussions page and start a discussion!](https://github.com/Mopzilla/SkinCalcPlus/discussions)
+ [Head over to the discussions page and start a discussion!](https://github.com/Mopzilla/SkinCalcPlus/discussions)
 ## Table of Contents
 - [Overview](#overview)
 - [Disclaimer](#disclaimer)
