@@ -31,7 +31,7 @@ scplus2.generate_profile = async function() {
     }
 
     const profile_prefix = scplus2.prefix + "-p182";
-    $(selector).append(`
+    $(scplus2.selectors.user_xp).append(`
         <span 
             id="${profile_prefix}-req-xp"
             title=
