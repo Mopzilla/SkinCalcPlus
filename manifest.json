@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "SkinCalcPlus",
     "description": "SC+ provides additional features to Skin.Club to help the user make more informed decisions throughout the site.",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "content_scripts": [
         {
             "matches": ["https://skin.club/*"],
