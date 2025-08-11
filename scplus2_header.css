@@ -46,7 +46,7 @@
     transform: rotateZ(-25deg);
 }
 
-.header-block-wrapper .sticky-profile{
+.visible:has(.user-block.scplus2-pending){
     clip-path: none !important;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;

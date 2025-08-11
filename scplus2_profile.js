@@ -2,14 +2,12 @@ window.scplus2 = window.scplus2 || {};
 
 
 scplus2.generate_profile = async function() {
-    const selector = `.user-level .user-level__xp-info`;
-
-    if (!$(selector).length) {
+    if (!$(scplus2.selectors.user_xp).length) {
         alert(".user-level__xp-info not found despite being found earlier");
         return
     }
 
-    const cur_xp = parseFloat($(`${selector} div`).text().replace("XP ", "").split(" / ")[0]);
+    const cur_xp = parseFloat($(scplus2.selectors.user_xp).text().replace("XP ", "").split(" / ")[0]);
 
     let daily_json;
     try {
@@ -47,9 +45,9 @@ Because you typically only spend 10% of the USD you put in, you can loosely assu
 
 Again, this is an approximation and slightly overvalues your USD and it is also reliant on hitting the 90% expected value.
 
-It is far more likely you will only get around 50% of your money back on a case opening. (the median return changes drastically from case to case)
+To get the best chances at reaching a level milestone you either want cases with high EV and less rare top skins or cases with very high median returns.
 
-To get the best chances at reaching a level milestone you either want cases with high EV and less rare top skins or cases with very high median returns."
+There are community cases with really high break even odds and high median returns, these cases would be the best option for pure XP farming"
         >XP ${req_xp} to lvl${req_level} (&asymp;$${Math.ceil(req_xp * 0.005)})</span>
     `);
 }

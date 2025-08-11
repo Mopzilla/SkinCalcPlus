@@ -4,48 +4,51 @@ let scplus2_show_battle_stats = false;
 
 
 scplus2.generate_battles = async function() {
-    if (!$(".battle-slots")) {
+    if (!$(scplus2.selectors.battle_slots)) {
         alert(".battle-slots not found despite being found earlier");
         return;
     }
 
     // don't do anything to finished cases
-    if ($(".battle-state-finished").length) {
+    //if ($(".battle-state-finished").length) {
         //return;
-    }
+    //}
 
     const url_cache = $(location).attr("href").toString();
     const battle_prefix = `${scplus2.prefix}-b8926`;
-    const crazy = $(".crazy-mode").length ? true : false;
-    const player_count = $(".battle-slot").length;
-    const gamemode = $(".battle-teams").length
+    const crazy = $(scplus2.selectors.crazy_mode).length ? true : false;
+    const player_count = $(scplus2.selectors.battle_slot).length;
+    const gamemode = $(scplus2.selectors.is_teams).length
         ? "team"
-        : $(".is-sharing-mode").length
+        : $(scplus2.selectors.is_sharing).length
             ? "sharing"
             : "default";
     
-    $(".battle-progress__roulette").append(`
+    $(scplus2.selectors.battle_roulette).append(`
         <button id="${battle_prefix}-toggle-stats">
             <span>SHOW STATS</span>
             <span>HIDE STATS</span>
         </button>
     `);
+
     $(`#${battle_prefix}-toggle-stats`).on("click", function () {
         toggle_battle_stats();
     });
-    $(".battle-slot").append(`<span class="${battle_prefix}-personal-usd"></span>`);
+
+    $(scplus2.selectors.battle_slot).append(`<span class="${battle_prefix}-personal-usd"></span>`);
+
     switch (gamemode) {
         case "team":
-            $(".battle-teams .battle-teams__team.is-ct").append(`
+            $(scplus2.selectors.team_ct).append(`
                 <span class="${battle_prefix}-team-usd ${battle_prefix}-ct">$99.99</span>
             `);
-            $(".battle-teams .battle-teams__team.is-t").append(`
+            $(scplus2.selectors.team_t).append(`
                 <span class="${battle_prefix}-team-usd ${battle_prefix}-t">$99.99</span>
             `);
             break;
 
         case "sharing":
-            $(".battle-slots").before(`
+            $(scplus2.selectors.battle_slots).before(`
                 <div class="${battle_prefix}-sharing-cont">
                     <span style="margin-left: 6px; margin-right: 4px;">TOTAL: </span>
                     <span style="color: #4af1cc;" class="${battle_prefix}-sharing-total">$00.00</span>
@@ -70,7 +73,7 @@ scplus2.generate_battles = async function() {
         }
 
         // stop execution on battles that have finished
-        if ($(".battle-state-finished").length) {
+        if ($(scplus2.selectors.battle_finished).length) {
             return;
         }
 
@@ -188,7 +191,7 @@ scplus2.generate_battles = async function() {
         let min_val = Infinity;
         let max_val = 0.0;
 
-        $(".battle-slot").each(function() {
+        $(scplus2.selectors.battle_slot).each(function() {
             const items = $(this).find(".drop-main-info__price");
             const personal_usd = $(this).find(`.${battle_prefix}-personal-usd`);
             const is_t = $(this).find("div.battle-slot-player.is-t-team").length;

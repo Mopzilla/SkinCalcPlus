@@ -47,27 +47,32 @@ On your profile page you can see the number of XP required to hit the next daily
 
 ![amount of xp/usd required to hit next daily case milestone](./req_xp.png)
 ## Displayed Giveaway Odds
-The prices and chances of each item in the giveaway cases are displayed on the skin list below the giveaway.
+Temporarily Disabled.
+~~The prices and chances of each item in the giveaway cases are displayed on the skin list below the giveaway.~~
 
 ![prices and chances of giveaway case items](./giveaway.png)
 ## Live Battle Tracker
-Live battle tracking lets you determine the winner before the battle ends - no manual calculations needed.
+Temporarily Disabled.
+~~Live battle tracking lets you determine the winner before the battle ends - no manual calculations needed.~~
 
-Prefer the suspense of not knowing the winner? Stats are hidden by default and can be enabled with the "SHOW STATS" button!
+~~Prefer the suspense of not knowing the winner? Stats are hidden by default and can be enabled with the "SHOW STATS" button!~~
 ### Sharing Mode Pool
-For sharing mode battles a number displays the total value of all items pulled so far, as well as displaying the split each player will receive.
+Temporarily Disabled.
+~~For sharing mode battles a number displays the total value of all items pulled so far, as well as displaying the split each player will receive.~~
 
-If you manage to hit positive, the red underline will change to green to show it immediately!
+~~If you manage to hit positive, the red underline will change to green to show it immediately!~~
 
 ![shows total sharing pool and split for sharing mode](./sharing_mode.gif)
 ### Team Pool
-For team battles you can see the total value of items per team so you can see which team is ahead.
+Temporarily Disabled.
+~~For team battles you can see the total value of items per team so you can see which team is ahead.~~
 
 ![shows which team is winning in a team battle](./team_battle.gif)
 ### Crazy Mode Support
-In Crazy Mode, colors are inverted: the lowest-value battle slot appears green instead of the highest.
+Temporarily Disabled.
+~~In Crazy Mode, colors are inverted: the lowest-value battle slot appears green instead of the highest.~~
 
-This also applies to the team pools.
+~~This also applies to the team pools.~~
 
 ![green and red colors get inverted for crazy mode](./crazy_mode.gif)
 

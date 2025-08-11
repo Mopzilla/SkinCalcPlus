@@ -9,21 +9,23 @@ scplus2.observer = new MutationObserver(() => {
         scplus2.generate_case_page();
     }
 
-    if ($("div.giveaway-case").length) {
-        if (!scplus2.is_null_or_set_pending("div.container.sm.skins-list")) {
-            scplus2.generate_giveaway_page();
-        }
-    }
+    // giveaway odds removed cus nobody cares about it i think (and its broke cba fixing)
+    //if ($("div.giveaway-case").length) {
+        //if (!scplus2.is_null_or_set_pending("div.container.sm.skins-list")) {
+            //scplus2.generate_giveaway_page();
+        //}
+    //}
 
-    if (!scplus2.is_null_or_set_pending(".header-block-wrapper .sticky-profile .user-block")) {
+    if (!scplus2.is_null_or_set_pending(scplus2.selectors.sticky_user)) {
         scplus2.generate_header();
     }
 
-    if (!scplus2.is_null_or_set_pending(".battle-slots")) {
-        scplus2.generate_battles();
-    }
+    // battle section removed till I can be bothered to fix it
+    //if (!scplus2.is_null_or_set_pending(scplus2.selectors.battle_slots)) {
+        //scplus2.generate_battles();
+    //}
 
-    if (!scplus2.is_null_or_set_pending(".user-level .user-level__xp-info")) {
+    if (!scplus2.is_null_or_set_pending(scplus2.selectors.user_xp)) {
         scplus2.generate_profile();
     }
 });

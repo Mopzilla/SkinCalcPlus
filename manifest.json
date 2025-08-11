@@ -23,7 +23,8 @@
                 "scplus2_giveaway_page.js",
                 "scplus2_header.js",
                 "scplus2_battle.js",
-                "scplus2_profile.js"
+                "scplus2_profile.js",
+                "scplus2_selectors.js"
             ]
         }
     ],

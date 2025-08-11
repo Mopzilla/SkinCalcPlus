@@ -2,16 +2,14 @@ window.scplus2 = window.scplus2 || {};
 
 
 scplus2.generate_header = async function() {
-    const top_block_selector = `.header-block-wrapper .top-block`;
-    // .sticky-profile gets overwritten by css, so use child element instead
-    const sticky_selector = `.header-block-wrapper .sticky-profile .user-block`;
+    const top_block_selector = `._ngjGO2xMKSs-`;
 
     if (!$(top_block_selector)) {
         alert(".top-block not found despite being found earlier");
         return;
     }
 
-    if (!$(sticky_selector)) {
+    if (!$(scplus2.selectors.sticky_user)) {
         alert(".sticky-profile not found despite being found earlier");
         return;
     }
@@ -28,7 +26,7 @@ scplus2.generate_header = async function() {
     let sections_json, giveaway_json, remaining_time, end_time, seconds_left;
     await get_time_remaining();
 
-    $(sticky_selector).append(`<div id="${head_prefix}-sticky-container"></div>`);
+    $(scplus2.selectors.sticky_user).append(`<div id="${head_prefix}-sticky-container"></div>`);
 
     for (i in giveaway_json.cases) {
         const giveaway_case = giveaway_json.cases[i];
