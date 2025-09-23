@@ -2,7 +2,7 @@ window.scplus2 = window.scplus2 || {};
 
 scplus2.selectors = {
     // Profile Page
-    user_xp: `._e514c49d68c8 > div:first-child`, // the div containing the raw text showing the xp
+    user_xp: `.user-level-profile > div`, // the div containing the raw text showing the xp
 
     // Header
     sticky_user: `._d2d1faad5aaa .user-block`, // the bottom most container of the sticky header user elements
