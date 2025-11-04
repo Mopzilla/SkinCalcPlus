@@ -11,7 +11,7 @@ scplus2.generate_profile = async function() {
 
     let daily_json;
     try {
-        daily_json = await $.getJSON(`https://gate.skin.club/apiv2/daily-cases?page=1&per-page=50`);
+        daily_json = await $.getJSON(`https://gate.skin.club/apiv2/v2/daily-cases?page=1&per-page=50`);
         daily_json = daily_json.data;
         daily_json.sort((a, b) => a.level.xp - b.level.xp);
     } catch (err) {
